@@ -1,0 +1,30 @@
+payment_entry:
+    path:     /
+    defaults: { _controller: "WojciechMKramBundle:Payment:index" }
+
+payment_entry_show:
+    path:     /{id}/show
+    defaults: { _controller: "WojciechMKramBundle:Payment:show" }
+
+payment_entry_new:
+    path:     /new
+    defaults: { _controller: "WojciechMKramBundle:Payment:new" }
+
+payment_entry_create:
+    path:     /create
+    defaults: { _controller: "WojciechMKramBundle:Payment:create" }
+    requirements: { _method: post }
+
+payment_entry_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WojciechMKramBundle:Payment:edit" }
+
+payment_entry_update:
+    path:     /{id}/update
+    defaults: { _controller: "WojciechMKramBundle:Payment:update" }
+    requirements: { _method: post|put }
+
+payment_entry_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WojciechMKramBundle:Payment:delete" }
+    requirements: { _method: post|delete }

@@ -1,0 +1,92 @@
+<?php
+
+namespace WojciechM\KramBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ShoppingList
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class ShoppingList
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_created", type="datetime")
+     */
+    private $dateCreated;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ShoppingListEntries", mappedBy="list")
+     **/
+    private $entries;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     * @return ShoppingList
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime 
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * Set entries
+     *
+     * @param array $entries
+     * @return ShoppingList
+     */
+    public function setEntries($entries)
+    {
+        $this->entries = $entries;
+
+        return $this;
+    }
+
+    /**
+     * Get entries
+     *
+     * @return array 
+     */
+    public function getEntries()
+    {
+        return $this->entries;
+    }
+}

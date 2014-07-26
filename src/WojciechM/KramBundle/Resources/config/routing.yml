@@ -1,0 +1,15 @@
+wojciech_m_kram_homepage:
+    path:     /
+    defaults: { _controller: WojciechMKramBundle:Default:index }
+
+WojciechMKramBundle_user:
+        resource: "@WojciechMKramBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+
+WojciechMKramBundle_payment_type:
+        resource: "@WojciechMKramBundle/Resources/config/routing/paymenttype.yml"
+        prefix:   /payment/type
+
+WojciechMKramBundle_payment_entry:
+        resource: "@WojciechMKramBundle/Resources/config/routing/payment.yml"
+        prefix:   /payment/entry

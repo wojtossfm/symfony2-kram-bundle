@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+	{% stylesheets 'bundles/wojciechmkram/css/*' filter='cssrewrite' %}
+	        <link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
+	
+{% block javascripts %}
+	{% javascripts
+	    '@WojciechMKramBundle/Resources/public/js/jquery.js'
+	    '@WojciechMKramBundle/Resources/public/js/jquery-ui.js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{%  endblock %}
+
+{% block title %}
+	{% trans %}Kram{% endtrans %}
+{% endblock %}
+
+{% block body %}
+	<div id="container">
+		<header>
+		{% block header %}
+			<nav>
+			{% block nav %}
+				Menu placeholder
+			{% endblock %}
+			</nav>
+		{% endblock %}
+		</header>
+		<section>
+		{% block section %}
+			{% block content %}
+				Content placeholder
+			{% endblock %}
+		{% endblock %}
+		</section>
+		<footer>
+			{% block footer %}
+			Footer placeholder
+			{% endblock %}
+		</footer>
+	</div>
+{% endblock %}

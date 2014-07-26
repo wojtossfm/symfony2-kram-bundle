@@ -1,0 +1,7 @@
+parameters:
+#    wojciech_m_kram.example.class: WojciechM\KramBundle\Example
+
+services:
+#    wojciech_m_kram.example:
+#        class: %wojciech_m_kram.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

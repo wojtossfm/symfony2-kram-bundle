@@ -1,0 +1,30 @@
+user:
+    path:     /
+    defaults: { _controller: "WojciechMKramBundle:User:index" }
+
+user_show:
+    path:     /{id}/show
+    defaults: { _controller: "WojciechMKramBundle:User:show" }
+
+user_new:
+    path:     /new
+    defaults: { _controller: "WojciechMKramBundle:User:new" }
+
+user_create:
+    path:     /create
+    defaults: { _controller: "WojciechMKramBundle:User:create" }
+    requirements: { _method: post }
+
+user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WojciechMKramBundle:User:edit" }
+
+user_update:
+    path:     /{id}/update
+    defaults: { _controller: "WojciechMKramBundle:User:update" }
+    requirements: { _method: post|put }
+
+user_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WojciechMKramBundle:User:delete" }
+    requirements: { _method: post|delete }

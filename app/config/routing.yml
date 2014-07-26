@@ -1,0 +1,4 @@
+wojciech_m_kram:
+    resource: "@WojciechMKramBundle/Resources/config/routing.yml"
+    prefix:   /
+
