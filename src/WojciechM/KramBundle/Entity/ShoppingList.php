@@ -29,7 +29,7 @@ class ShoppingList
     private $dateCreated;
 
     /**
-     * @ORM\OneToMany(targetEntity="ShoppingListEntries", mappedBy="list")
+     * @ORM\OneToMany(targetEntity="ShoppingListEntry", mappedBy="list")
      **/
     private $entries;
 
@@ -50,8 +50,7 @@ class ShoppingList
      * @param \DateTime $dateCreated
      * @return ShoppingList
      */
-    public function setDateCreated($dateCreated)
-    {
+    public function setDateCreated($dateCreated)    {
         $this->dateCreated = $dateCreated;
 
         return $this;
@@ -89,13 +88,7 @@ class ShoppingList
     {
         return $this->entries;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
 
     /**
      * Add entries
@@ -120,7 +113,11 @@ class ShoppingList
         $this->entries->removeElement($entries);
     }
     
-    public function __construct() {
-    	$this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

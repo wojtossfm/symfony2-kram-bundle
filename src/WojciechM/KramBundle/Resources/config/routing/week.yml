@@ -1,0 +1,30 @@
+week:
+    path:     /
+    defaults: { _controller: "WojciechMKramBundle:Week:index" }
+
+week_show:
+    path:     /{id}/show
+    defaults: { _controller: "WojciechMKramBundle:Week:show" }
+
+week_new:
+    path:     /new
+    defaults: { _controller: "WojciechMKramBundle:Week:new" }
+
+week_create:
+    path:     /create
+    defaults: { _controller: "WojciechMKramBundle:Week:create" }
+    requirements: { _method: post }
+
+week_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WojciechMKramBundle:Week:edit" }
+
+week_update:
+    path:     /{id}/update
+    defaults: { _controller: "WojciechMKramBundle:Week:update" }
+    requirements: { _method: post|put }
+
+week_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WojciechMKramBundle:Week:delete" }
+    requirements: { _method: post|delete }

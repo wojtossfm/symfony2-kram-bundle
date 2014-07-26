@@ -294,6 +294,10 @@ class User
     {
         return $this->payments;
     }
+    
+    public function __toString() {
+    	return $this->lastName . " " . $this->firstName;
+    }
 
 	public function __construct() {
 		$this->dateCreated = new \DateTime();

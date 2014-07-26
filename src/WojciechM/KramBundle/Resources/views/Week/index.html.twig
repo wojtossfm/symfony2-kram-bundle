@@ -1,34 +1,30 @@
-{% extends ':Default:index.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Payment list</h1>
+    <h1>Week list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Userid</th>
-                <th>Typeid</th>
-                <th>Amount</th>
-                <th>Datecreated</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Fee</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('payment_entry_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.userId }}</td>
-                <td>{{ entity.typeId }}</td>
-                <td>{{ entity.amount }}</td>
-                <td>{{ entity.dateCreated }}</td>
+                <td>{% if entity.start %}{{ entity.start|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.end %}{{ entity.end|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.fee }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('payment_entry_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('week_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('payment_entry_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('week_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -39,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('payment_entry_new') }}">
+            <a href="{{ path('week_new') }}">
                 Create a new entry
             </a>
         </li>
