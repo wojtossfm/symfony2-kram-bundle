@@ -1,16 +1,5 @@
-{% extends 'WojciechMKramBundle:Default:base.html.twig' %}
+{% extends 'WojciechMKramBundle:Default:ajax_base.html.twig' %}
 
 {% block content -%}
-    <h1>Debt edit</h1>
-
     {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('debt') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

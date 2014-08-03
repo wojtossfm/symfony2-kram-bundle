@@ -14,7 +14,7 @@
   min-height: 10px;
 }
 
-@import "partials/menu";
+@import "partials/menu_and_lists";
 
 header, footer {
   @include column($blueprint-grid-columns);

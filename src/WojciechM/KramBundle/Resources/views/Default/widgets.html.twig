@@ -15,12 +15,37 @@
 	{% import _self as widgets %}
 	{% spaceless %}
 		<form class="inline" action="{{ path(url, urlargs) }}" method="POST">
-        	<input type="hidden" name="_csrf_token" value="{{ csrf_token(intention) }}"/>
-        	{% if name %}
-        		{{ widgets.button_confirm(name, classes) }}
-        	{% else %}
-        		{{ widgets.button_confirm("delete", classes) }}
-        	{% endif %}
-        </form>
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token(intention) }}"/>
+			{% if name %}
+				{{ widgets.button_confirm(name, classes) }}
+			{% else %}
+				{{ widgets.button_confirm("delete", classes) }}
+			{% endif %}
+		</form>
 	{% endspaceless %}
+{% endmacro %}
+
+{% macro button_ready_show(url, id) %}
+	{% import _self as widgets %}
+	{{ widgets.button("show", "", url, {"id":id}) }}
+{% endmacro %}
+
+{% macro button_ready_edit(url, id) %}
+	{% import _self as widgets %}
+	{{ widgets.button("edit", "", url, {"id":id}) }}
+{% endmacro %}
+
+{% macro button_ready_delete(url, id, intention) %}
+	{% import _self as widgets %}
+	{{ widgets.button_delete("", "", url, {"id":id}, intention) }}
+{% endmacro %}
+
+{% macro button_ready_new(url) %}
+	{% import _self as widgets %}
+	{{ widgets.button("New entry", "", url, {}) }}
+{% endmacro %}
+
+{% macro button_to_list(url) %}
+	{% import _self as widgets %}
+	{{ widgets.button("back to the list", "", url, {}) }}
 {% endmacro %}

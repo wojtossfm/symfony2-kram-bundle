@@ -46,12 +46,12 @@
                 	</ul>
                 </td>
                 <td>
-                <ul>
+                <ul class="actions">
                     <li>
-                        <a href="{{ path('week_show', { 'id': entity.id }) }}">show</a>
+                    	{{ widgets.button_ready_show('week_show', entity.id) }}
                     </li>
                     <li>
-                        <a href="{{ path('week_edit', { 'id': entity.id }) }}">edit</a>
+                    	{{ widgets.button_ready_edit('week_edit', entity.id) }}
                     </li>
                 </ul>
                 </td>

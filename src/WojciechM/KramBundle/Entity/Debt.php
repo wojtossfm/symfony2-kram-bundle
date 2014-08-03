@@ -5,7 +5,7 @@ namespace WojciechM\KramBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Payment
+ * Debt
  *
  * @ORM\Table()
  * @ORM\Entity()

@@ -26,15 +26,12 @@
                 <td>{{ entity.amount }}</td>
                 <td>{{ entity.dateCreated|date('Y-m-d H:i') }}</td>
                 <td>
-                <ul>
+                <ul class="actions">
                     <li>
-                    	{{ widgets.button("show", '', 'debt_show', { 'id': entity.id }) }}
+                    	{{ widgets.button_ready_edit('debt_edit', entity.id) }}
                     </li>
                     <li>
-                    	{{ widgets.button("edit", '', 'debt_edit', { 'id': entity.id }) }}
-                    </li>
-                    <li>
-                    	{{ widgets.button_delete('', '', 'debt_delete', { 'id': entity.id })}}
+                    	{{ widgets.button_ready_delete('debt_delete', entity.id)}}
                     </li>
                 </ul>
                 </td>
@@ -43,11 +40,7 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('debt_new') }}">
-                Create a new entry
-            </a>
-        </li>
+    <ul class="actions">
+        <li>{{ widgets.button_ready_new('debt_new', intention_delete) }}</li>
     </ul>
     {% endblock %}
