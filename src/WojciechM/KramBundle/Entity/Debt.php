@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class Payment
+class Debt
 {
     /**
      * @var integer
@@ -25,11 +25,6 @@ class Payment
      * @ORM\ManyToOne(targetEntity="User", inversedBy="payments")
      **/
     private $user;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="PaymentType", inversedBy="payments")
-     **/
-    private $type;
 
     /**
      * @var string
@@ -130,29 +125,6 @@ class Payment
     }
 
     /**
-     * Set type
-     *
-     * @param \WojciechM\KramBundle\Entity\PaymentType $type
-     * @return Payment
-     */
-    public function setType(\WojciechM\KramBundle\Entity\PaymentType $type = null)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return \WojciechM\KramBundle\Entity\PaymentType 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Set week
      *
      * @param \WojciechM\KramBundle\Entity\Week $week
@@ -177,5 +149,9 @@ class Payment
     
     public function __construct() {
     	$this->dateCreated = new \DateTime();
+    }
+    
+    public function __toString() {
+    	return $this->user . " " .$this->getAmount();	
     }
 }

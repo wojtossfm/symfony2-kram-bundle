@@ -1,17 +1,16 @@
 {% extends 'WojciechMKramBundle:Default:base.html.twig' %}
 
 {% block content -%}
-    <h1>Payment list</h1>
+    <h1>Debt list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
                 <th>{% trans %}User{% endtrans %}</th>
-                <th>{% trans %}Week{% endtrans %}</th>
-                <th>{% trans %}Type{% endtrans %}</th>
-                <th>{% trans %}Amount{% endtrans %}</th>
-                <th>{% trans %}Created{% endtrans %}</th>
-                <th>{% trans %}Actions{% endtrans %}</th>
+                <th>Week</th>
+                <th>Amount</th>
+                <th>Created</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,13 +19,10 @@
                 <td>{{ entity.user }}</td>
                 <td>
                 	<ul>
-                		{% if entity.week %}
-	                		<li>{% if entity.week.start %}{{ entity.week.start|date('Y-m-d') }}{%else%} ? {% endif %}</li>
-	                		<li>{% if entity.week.end %}{{ entity.week.end|date('Y-m-d') }}{%else%} ? {% endif %}</li>
-                		{% endif %}
+                		<li>{% if entity.week.start %}{{ entity.week.start|date('Y-m-d') }}{%else%} ? {% endif %}</li>
+                		<li>{% if entity.week.end %}{{ entity.week.end|date('Y-m-d') }}{%else%} ? {% endif %}</li>
                 	</ul>
                 </td>
-                <td>{{ entity.type }}</td>
                 <td>{{ entity.amount }}</td>
                 <td>{{ entity.dateCreated|date('Y-m-d H:i') }}</td>
                 <td>
@@ -38,7 +34,7 @@
                     	{{ widgets.button("edit", '', 'debt_edit', { 'id': entity.id }) }}
                     </li>
                     <li>
-                    	{{ widgets.button_delete('', '', 'payment_entry_delete', { 'id': entity.id }, delete_intention)}}
+                    	{{ widgets.button_delete('', '', 'debt_delete', { 'id': entity.id })}}
                     </li>
                 </ul>
                 </td>
@@ -49,7 +45,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('payment_entry_new') }}">
+            <a href="{{ path('debt_new') }}">
                 Create a new entry
             </a>
         </li>

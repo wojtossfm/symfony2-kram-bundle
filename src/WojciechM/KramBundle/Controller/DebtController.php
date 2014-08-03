@@ -5,66 +5,65 @@ namespace WojciechM\KramBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use WojciechM\KramBundle\Entity\Week;
-use WojciechM\KramBundle\Form\WeekType;
+use WojciechM\KramBundle\Entity\Debt;
+use WojciechM\KramBundle\Form\DebtType;
 
 /**
- * Week controller.
+ * Debt controller.
  *
  */
-class WeekController extends Controller
+class DebtController extends Controller
 {
 
     /**
-     * Lists all Week entities.
+     * Lists all Debt entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $weeks = $em->getRepository('WojciechMKramBundle:Week')->findAllWithJoins();
-        
-        return $this->render('WojciechMKramBundle:Week:index.html.twig', array(
-            'entities' => $weeks,
+        $entities = $em->getRepository('WojciechMKramBundle:Debt')->findAll();
+
+        return $this->render('WojciechMKramBundle:Debt:index.html.twig', array(
+            'entities' => $entities,
         ));
     }
-    
     /**
-     * Creates a new Week entity.
+     * Creates a new Debt entity.
      *
      */
     public function createAction(Request $request)
     {
-    	$entity = new Week();
+        $entity = new Debt();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-        	$em = $this->getDoctrine()->getManager();
-        	$em->persist($entity);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('week_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('debt_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('WojciechMKramBundle:Week:new.html.twig', array(
+        return $this->render('WojciechMKramBundle:Debt:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Week entity.
+     * Creates a form to create a Debt entity.
      *
-     * @param Week $entity The entity
+     * @param Debt $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Week $entity)
+    private function createCreateForm(Debt $entity)
     {
-        $form = $this->createForm(new WeekType(), $entity, array(
-            'action' => $this->generateUrl('week_create'),
+        $form = $this->createForm(new DebtType(), $entity, array(
+            'action' => $this->generateUrl('debt_create'),
             'method' => 'POST',
         ));
 
@@ -74,64 +73,60 @@ class WeekController extends Controller
     }
 
     /**
-     * Displays a form to create a new Week entity.
+     * Displays a form to create a new Debt entity.
      *
      */
     public function newAction()
     {
-        $entity = new Week();
-        $fee = $this->getDoctrine()->getManager()
-        	->getRepository('WojciechMKramBundle:Week')->getLastFee();
-        $entity->setFee($fee);
-        
+        $entity = new Debt();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('WojciechMKramBundle:Week:new.html.twig', array(
+        return $this->render('WojciechMKramBundle:Debt:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Week entity.
+     * Finds and displays a Debt entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WojciechMKramBundle:Week')->find($id);
+        $entity = $em->getRepository('WojciechMKramBundle:Debt')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Week entity.');
+            throw $this->createNotFoundException('Unable to find Debt entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('WojciechMKramBundle:Week:show.html.twig', array(
+        return $this->render('WojciechMKramBundle:Debt:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Week entity.
+     * Displays a form to edit an existing Debt entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WojciechMKramBundle:Week')->find($id);
+        $entity = $em->getRepository('WojciechMKramBundle:Debt')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Week entity.');
+            throw $this->createNotFoundException('Unable to find Debt entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('WojciechMKramBundle:Week:edit.html.twig', array(
+        return $this->render('WojciechMKramBundle:Debt:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -139,16 +134,16 @@ class WeekController extends Controller
     }
 
     /**
-    * Creates a form to edit a Week entity.
+    * Creates a form to edit a Debt entity.
     *
-    * @param Week $entity The entity
+    * @param Debt $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Week $entity)
+    private function createEditForm(Debt $entity)
     {
-        $form = $this->createForm(new WeekType(), $entity, array(
-            'action' => $this->generateUrl('week_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new DebtType(), $entity, array(
+            'action' => $this->generateUrl('debt_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -157,41 +152,37 @@ class WeekController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Week entity.
+     * Edits an existing Debt entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WojciechMKramBundle:Week')->find($id);
+        $entity = $em->getRepository('WojciechMKramBundle:Debt')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Week entity.');
+            throw $this->createNotFoundException('Unable to find Debt entity.');
         }
-		$deleteForm = $this->createDeleteForm($id);
+
+        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-        	$debts = $entity->getDebts();
-        	$fee = $entity->getFee();
-        	foreach($debts as $debt) {
-        		$debt->setAmount($fee);
-        	}
             $em->flush();
 
-            return $this->redirect($this->generateUrl('week'));
+            return $this->redirect($this->generateUrl('debt_edit', array('id' => $id)));
         }
 
-        return $this->render('WojciechMKramBundle:Week:edit.html.twig', array(
+        return $this->render('WojciechMKramBundle:Debt:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Week entity.
+     * Deletes a Debt entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -201,21 +192,21 @@ class WeekController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('WojciechMKramBundle:Week')->find($id);
+            $entity = $em->getRepository('WojciechMKramBundle:Debt')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Week entity.');
+                throw $this->createNotFoundException('Unable to find Debt entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('week'));
+        return $this->redirect($this->generateUrl('debt'));
     }
 
     /**
-     * Creates a form to delete a Week entity by id.
+     * Creates a form to delete a Debt entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -224,7 +215,7 @@ class WeekController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('week_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('debt_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

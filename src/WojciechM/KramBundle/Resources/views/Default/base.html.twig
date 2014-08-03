@@ -1,7 +1,12 @@
 {% extends "::base.html.twig" %}
+{% import 'WojciechMKramBundle:Default:widgets.html.twig' as widgets %}
 
 {% block stylesheets %}
-	{% stylesheets 'bundles/wojciechmkram/css/*' filter='cssrewrite' %}
+{# 		'bundles/wojciechmkram/css/*' #}
+{# 		'@WojciechMKramBundle/Resources/public/css/*'#}
+	{% stylesheets filter='cssrewrite'
+		'bundles/wojciechmkram/css/*'
+	%}
 	        <link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
 {% endblock %}
@@ -10,6 +15,7 @@
 	{% javascripts
 	    '@WojciechMKramBundle/Resources/public/js/jquery.js'
 	    '@WojciechMKramBundle/Resources/public/js/jquery-ui.js'
+	    '@WojciechMKramBundle/Resources/public/js/utils.js'
 	%}
 	    <script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
@@ -25,7 +31,12 @@
 		{% block header %}
 			<nav>
 			{% block nav %}
-				Menu placeholder
+				<ul class="nav">
+					<li><a href={{ path("week") }}>{% trans %}Weeks{% endtrans %}</a></li>
+					<li><a href={{ path("payment_entry") }}>{% trans %}Payments{% endtrans %}</a></li>
+					<li><a href={{ path("debt") }}>{% trans %}Debts{% endtrans %}</a></li>
+					<li><a href={{ path("user") }}>{% trans %}Users{% endtrans %}</a></li>
+				</ul>
 			{% endblock %}
 			</nav>
 		{% endblock %}

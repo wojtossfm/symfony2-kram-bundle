@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PaymentType extends AbstractType
+class DebtType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,10 @@ class PaymentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user')
-            ->add('type')
             ->add('amount')
             ->add('dateCreated', null, array("widget"=>"single_text"))
+            ->add('user')
+            ->add('week')
         ;
     }
     
@@ -28,7 +28,7 @@ class PaymentType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'WojciechM\KramBundle\Entity\Payment'
+            'data_class' => 'WojciechM\KramBundle\Entity\Debt'
         ));
     }
 
@@ -37,6 +37,6 @@ class PaymentType extends AbstractType
      */
     public function getName()
     {
-        return 'wojciechm_krambundle_payment';
+        return 'wojciechm_krambundle_debt';
     }
 }

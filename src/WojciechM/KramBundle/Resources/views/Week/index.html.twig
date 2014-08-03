@@ -1,23 +1,50 @@
-{% extends '::base.html.twig' %}
+{% extends 'WojciechMKramBundle:Default:base.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>Week list</h1>
 
     <table class="records_list">
         <thead>
             <tr>
-                <th>Start</th>
-                <th>End</th>
+                <th>Dates</th>
                 <th>Fee</th>
+                <th>Summary</th>
+                <th>Shoppers</th>
+                <th>Collectors</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td>{% if entity.start %}{{ entity.start|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.end %}{{ entity.end|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                	<ul>
+                		<li>{% if entity.start %}{{ entity.start|date('Y-m-d') }}{%else%} ? {% endif %}</li>
+                		<li>{% if entity.end %}{{ entity.end|date('Y-m-d') }}{%else%} ? {% endif %}</li>
+                	</ul>
+                </td>
                 <td>{{ entity.fee }}</td>
+                <td>
+                	<ul>
+                		{% for sum in entity.summary %}
+                			<li> {{ sum.user }}: <span class="summary {% if sum.amount < 0%}debt{%else%}paid{% endif %}">{{ sum.amount }}</span></li>
+                		{% endfor %}
+                	</ul>
+                </td>
+                <td>
+                	<ul>
+                		{% for user in entity.shoppers %}
+                			<li> {{ user }}</li>
+                		{% endfor %}
+                	</ul>
+                </td>
+                <td>
+                	<ul>
+                		{% for user in entity.collectors %}
+                			<li> {{ user }}</li>
+                		{% endfor %}
+                	</ul>
+                </td>
                 <td>
                 <ul>
                     <li>
@@ -32,12 +59,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('week_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
     {% endblock %}

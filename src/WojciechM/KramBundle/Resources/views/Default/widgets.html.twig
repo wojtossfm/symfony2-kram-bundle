@@ -1,0 +1,26 @@
+{% macro button(name, classes, url, urlargs) %}
+	{% spaceless %}
+	{% if url %}<a href="{{ path(url, urlargs) }}"{% else %}<button{% endif %}
+		class="button {% if classes %}{{ classes }}{% endif %}">{{ name|trans }}
+	{% if url %}</a>{% else %}</button>{% endif %}
+	{% endspaceless %}
+{% endmacro %}
+
+{% macro button_confirm(name, classes, url, urlargs) %}
+	{% import _self as widgets %}
+	{{ widgets.button(name, "#{classes} confirm", url, urlargs) }}
+{% endmacro %}
+
+{% macro button_delete(name, classes, url, urlargs, intention) %}
+	{% import _self as widgets %}
+	{% spaceless %}
+		<form class="inline" action="{{ path(url, urlargs) }}" method="POST">
+        	<input type="hidden" name="_csrf_token" value="{{ csrf_token(intention) }}"/>
+        	{% if name %}
+        		{{ widgets.button_confirm(name, classes) }}
+        	{% else %}
+        		{{ widgets.button_confirm("delete", classes) }}
+        	{% endif %}
+        </form>
+	{% endspaceless %}
+{% endmacro %}

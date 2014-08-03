@@ -17,4 +17,7 @@ WojciechMKramBundle_payment_entry:
 WojciechMKramBundle_week:
         resource: "@WojciechMKramBundle/Resources/config/routing/week.yml"
         prefix:   /week
-        
+
+WojciechMKramBundle_debt:
+        resource: "@WojciechMKramBundle/Resources/config/routing/debt.yml"
+        prefix:   /debt

@@ -9,10 +9,12 @@
 
 #container {
   @include container;
-  @include grid-background;
+  /*@include grid-background;*/
   width: 99%;
   min-height: 10px;
 }
+
+@import "partials/menu";
 
 header, footer {
   @include column($blueprint-grid-columns);
@@ -49,4 +51,14 @@ body.two-col {
     // true means it's the last column in the row
     @include column($content-columns, true);
   }
+}
+
+span.summary {
+	font-weight: bold;
+	&.debt {
+		color: red;
+	}
+	&.paid {
+		color: green;
+	}
 }

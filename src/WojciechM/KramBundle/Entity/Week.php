@@ -58,6 +58,11 @@ class Week
      * @ORM\OneToMany(targetEntity="Payment", mappedBy="week")
      **/
     private $payments;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Debt", mappedBy="week")
+     **/
+    private $debts;
 
     /**
      * @ORM\OneToMany(targetEntity="Expense", mappedBy="week")
@@ -145,19 +150,6 @@ class Week
     }
 
     /**
-     * Set collectors
-     *
-     * @param array $collectors
-     * @return Week
-     */
-    public function setCollectors($collectors)
-    {
-        $this->collectors = $collectors;
-
-        return $this;
-    }
-
-    /**
      * Get collectors
      *
      * @return array 
@@ -165,19 +157,6 @@ class Week
     public function getCollectors()
     {
         return $this->collectors;
-    }
-
-    /**
-     * Set shoppers
-     *
-     * @param array $shoppers
-     * @return Week
-     */
-    public function setShoppers($shoppers)
-    {
-        $this->shoppers = $shoppers;
-
-        return $this;
     }
 
     /**
@@ -301,11 +280,68 @@ class Week
     {
         return $this->expenses;
     }
+
+    /**
+     * Add debts
+     *
+     * @param \WojciechM\KramBundle\Entity\Debt $debts
+     * @return Week
+     */
+    public function addDebt(\WojciechM\KramBundle\Entity\Debt $debts)
+    {
+        $this->debts[] = $debts;
+
+        return $this;
+    }
+
+    /**
+     * Remove debts
+     *
+     * @param \WojciechM\KramBundle\Entity\Debt $debts
+     */
+    public function removeDebt(\WojciechM\KramBundle\Entity\Debt $debts)
+    {
+        $this->debts->removeElement($debts);
+    }
+
+    /**
+     * Get debts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDebts()
+    {
+        return $this->debts;
+    }
     
+    public function getSummary() {
+    	$debts = $this->getDebts();
+    	$payments = $this->getPayments();
+    	$summary = array();
+    	foreach($debts as $debt) {
+    		$uid = $debt->getUser()->getId();
+    		$summary[$uid] = array("user"=>$debt->getUser(), "amount"=>-$debt->getAmount());
+    	}
+    	foreach($payments as $payment) {
+    		$uid = $payment->getUser()->getId();
+    		$value = isset($summary[$uid]) ? $summary[$uid]["amount"] : 0;
+    		$summary[$uid] = array("user"=>$debt->getUser(), "amount"=>$payment->getAmount() + $value);
+    	}
+    	return $summary;
+    }
+
     public function __construct() {
     	$this->shoppers = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->collectors = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->payments = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->expenses = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->debts = new \Doctrine\Common\Collections\ArrayCollection();
+    	$day = date('N')-1;
+    	$this->start = new \DateTime(date('Y-m-d', strtotime('-'.$day.' days')));
+    	$this->end = new \DateTime(date('Y-m-d', strtotime('+'.(6-$day).' days')));
+    }
+    
+    public function __toString() {
+    	return $this->start->format('Y-m-d')."-".$this->end->format('Y-m-d');
     }
 }

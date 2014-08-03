@@ -103,4 +103,8 @@ class PaymentType
     public function __construct() {
     	$this->payments = new \Doctrine\Common\Collections\ArrayCollection();
     }
+    
+    public function __toString() {
+    	return $this->name;
+    }
 }

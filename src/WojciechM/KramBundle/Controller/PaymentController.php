@@ -12,8 +12,8 @@ use WojciechM\KramBundle\Form\PaymentType;
  * Payment controller.
  *
  */
-class PaymentController extends Controller
-{
+class PaymentController extends Controller {
+	private static $CSRF_DELETE_TOKEN = "payment_deletion_token";
 
     /**
      * Lists all Payment entities.
@@ -26,7 +26,8 @@ class PaymentController extends Controller
         $entities = $em->getRepository('WojciechMKramBundle:Payment')->findAll();
 
         return $this->render('WojciechMKramBundle:Payment:index.html.twig', array(
-            'entities' => $entities,
+		'entities' => $entities,
+        'delete_intention' => static::$CSRF_DELETE_TOKEN,
         ));
     }
     /**
@@ -40,16 +41,19 @@ class PaymentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+        	$em = $this->getDoctrine()->getManager();
+        	$week = $em->getRepository('WojciechMKramBundle:Week')->findCurrent();
+			$week->addPayment($entity);
+        	$entity->setWeek($week);
+        	$em->persist($entity);
+			$em->flush();
 
-            return $this->redirect($this->generateUrl('payment_entry_show', array('id' => $entity->getId())));
+			return $this->redirect($this->generateUrl('payment_entry'));
         }
 
         return $this->render('WojciechMKramBundle:Payment:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+			'entity' => $entity,
+			'form'   => $form->createView(),
         ));
     }
 
@@ -63,8 +67,8 @@ class PaymentController extends Controller
     private function createCreateForm(Payment $entity)
     {
         $form = $this->createForm(new PaymentType(), $entity, array(
-            'action' => $this->generateUrl('payment_entry_create'),
-            'method' => 'POST',
+		'action' => $this->generateUrl('payment_entry_create'),
+		'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
@@ -82,30 +86,8 @@ class PaymentController extends Controller
         $form   = $this->createCreateForm($entity);
 
         return $this->render('WojciechMKramBundle:Payment:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Payment entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WojciechMKramBundle:Payment')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Payment entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('WojciechMKramBundle:Payment:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+		'entity' => $entity,
+		'form'   => $form->createView(),
         ));
     }
 
@@ -120,16 +102,16 @@ class PaymentController extends Controller
         $entity = $em->getRepository('WojciechMKramBundle:Payment')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Payment entity.');
+		throw $this->createNotFoundException('Unable to find Payment entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('WojciechMKramBundle:Payment:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+		'entity'      => $entity,
+		'edit_form'   => $editForm->createView(),
+		'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -143,8 +125,8 @@ class PaymentController extends Controller
     private function createEditForm(Payment $entity)
     {
         $form = $this->createForm(new PaymentType(), $entity, array(
-            'action' => $this->generateUrl('payment_entry_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+		'action' => $this->generateUrl('payment_entry_update', array('id' => $entity->getId())),
+		'method' => 'PUT',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -162,7 +144,7 @@ class PaymentController extends Controller
         $entity = $em->getRepository('WojciechMKramBundle:Payment')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Payment entity.');
+		throw $this->createNotFoundException('Unable to find Payment entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -170,15 +152,14 @@ class PaymentController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('payment_entry_edit', array('id' => $id)));
+			$em->flush();
+			return $this->redirect($this->generateUrl('payment_entry'));
         }
 
         return $this->render('WojciechMKramBundle:Payment:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+			'entity'      => $entity,
+			'edit_form'   => $editForm->createView(),
+			'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
@@ -187,38 +168,19 @@ class PaymentController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('WojciechMKramBundle:Payment')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Payment entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('payment_entry'));
-    }
-
-    /**
-     * Creates a form to delete a Payment entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('payment_entry_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+    	$csrf = $this->get('form.csrf_provider');
+    	$token = $request->get("_csrf_token");
+    	if ($csrf->isCsrfTokenValid(static::$CSRF_DELETE_TOKEN, $token)) {
+    		$em = $this->getDoctrine()->getManager();
+    		$entity = $em->getRepository('WojciechMKramBundle:Payment')->find($id);
+    		
+    		if (!$entity) {
+    			throw $this->createNotFoundException('Unable to find Payment entity.');
+    		}
+    		
+    		$em->remove($entity);
+    		$em->flush();		
+    	}
+		return $this->redirect($this->generateUrl('payment_entry'));
     }
 }

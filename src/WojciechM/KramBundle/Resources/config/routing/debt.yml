@@ -1,0 +1,30 @@
+debt:
+    path:     /
+    defaults: { _controller: "WojciechMKramBundle:Debt:index" }
+
+debt_show:
+    path:     /{id}/show
+    defaults: { _controller: "WojciechMKramBundle:Debt:show" }
+
+debt_new:
+    path:     /new
+    defaults: { _controller: "WojciechMKramBundle:Debt:new" }
+
+debt_create:
+    path:     /create
+    defaults: { _controller: "WojciechMKramBundle:Debt:create" }
+    requirements: { _method: post }
+
+debt_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WojciechMKramBundle:Debt:edit" }
+
+debt_update:
+    path:     /{id}/update
+    defaults: { _controller: "WojciechMKramBundle:Debt:update" }
+    requirements: { _method: post|put }
+
+debt_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WojciechMKramBundle:Debt:delete" }
+    requirements: { _method: post|delete }

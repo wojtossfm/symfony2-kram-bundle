@@ -15,11 +15,11 @@ class WeekType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('start')
-            ->add('end')
+            ->add('start', 'date')
+            ->add('end', 'date')
             ->add('fee')
-            ->add('collectors')
-            ->add('shoppers')
+            ->add('collectors', null, array('required'=> False))
+            ->add('shoppers', null, array('required'=> False))
         ;
     }
     

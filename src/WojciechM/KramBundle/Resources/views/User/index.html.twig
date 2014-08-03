@@ -1,6 +1,6 @@
 {% extends 'WojciechMKramBundle:Default:base.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>User list</h1>
 
     <table class="records_list">
@@ -23,7 +23,7 @@
                 <td>{{ entity.lastName }}</td>
                 <td>{{ entity.isActive }}</td>
                 <td>{{ entity.isAdmin }}</td>
-                <td>{% if entity.dateCreated %}{{ entity.dateCreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateCreated %}{{ entity.dateCreated|date('Y-m-d H:i') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
