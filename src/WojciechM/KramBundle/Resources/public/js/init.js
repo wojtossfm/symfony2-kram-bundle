@@ -9,6 +9,11 @@ $(function() {
 		$(".confirm", oContext).click(function () {
 			return confirm("Are you sure?");
 		});
+
+		$(".dialog", oContext).click(function () {
+			loadDialog($(this).prop("href"));
+			return false;
+		});
 	}
 	
 	InitiateButtons();

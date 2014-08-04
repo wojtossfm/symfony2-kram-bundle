@@ -1,0 +1,13 @@
+{% import 'WojciechMKramBundle:Default:widgets.html.twig' as widgets %}
+
+{% block content %}
+	Content placeholder
+{% endblock %}
+
+{% block javascripts %}
+	{% javascripts
+	    '@WojciechMKramBundle/Resources/public/js/init.js'
+	%}
+	    <script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{%  endblock %}

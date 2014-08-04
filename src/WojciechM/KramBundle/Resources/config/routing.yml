@@ -2,6 +2,16 @@ wojciech_m_kram_homepage:
     path:     /
     defaults: { _controller: WojciechMKramBundle:Default:index }
 
+login:
+    path:     /login
+    defaults: { _controller: WojciechMKramBundle:Security:login }
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
+
 WojciechMKramBundle_user:
         resource: "@WojciechMKramBundle/Resources/config/routing/user.yml"
         prefix:   /user

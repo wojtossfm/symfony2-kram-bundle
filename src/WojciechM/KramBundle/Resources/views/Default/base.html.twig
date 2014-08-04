@@ -32,12 +32,15 @@
 		{% block header %}
 			<nav>
 			{% block nav %}
-				<ul class="nav">
-					<li><a href={{ path("week") }}>{% trans %}Weeks{% endtrans %}</a></li>
-					<li><a href={{ path("payment_entry") }}>{% trans %}Payments{% endtrans %}</a></li>
-					<li><a href={{ path("debt") }}>{% trans %}Debts{% endtrans %}</a></li>
-					<li><a href={{ path("user") }}>{% trans %}Users{% endtrans %}</a></li>
-				</ul>
+				{% if app.user %}
+					<ul class="nav">
+						<li><a href={{ path("week") }}>{% trans %}Weeks{% endtrans %}</a></li>
+						<li><a href={{ path("payment_entry") }}>{% trans %}Payments{% endtrans %}</a></li>
+						<li><a href={{ path("debt") }}>{% trans %}Debts{% endtrans %}</a></li>
+						<li><a href={{ path("user") }}>{% trans %}Users{% endtrans %}</a></li>
+						<li><a href={{ path("logout") }}>{% trans %}Logout{% endtrans %}</a></li>
+					</ul>
+				{% endif %}
 			{% endblock %}
 			</nav>
 		{% endblock %}

@@ -15,6 +15,7 @@ class InvalidEntityException extends \Exception {
  */
 class ExtendedController extends Controller {
 	protected static $ENTITY = '';
+	protected static $DEFAULT_ENTITY = 'WojciechMKramBundle:Default';
 	protected static $ENTITY_CLASS = NULL;
 	protected static $ENTITY_FORM = NULL;
 	protected static $LIST_URL = '';
@@ -29,21 +30,6 @@ class ExtendedController extends Controller {
 		$context["intention_delete"] = $this->getDeleteIntetion();
 		return $context;
 	}
-
-	/**
-	 * Lists all Debt entities.
-	 *
-	 */
-	public function indexAction()
-	{
-		$em = $this->getDoctrine()->getManager();
-	
-		$entities = $em->getRepository(static::$ENTITY)->findAll();
-	
-		return $this->render(static::$ENTITY.':index.html.twig', $this->extendContext(array(
-				'entities' => $entities
-		)));
-	}
 	
 	protected function validCreatePre($entity, $em) {
 		
@@ -52,6 +38,33 @@ class ExtendedController extends Controller {
 	protected function validUpdatePre($entity, $em) {
 		
 	}
+	
+	protected function selectTemplate(Request $request, $name) {
+		$temp = $this->container->get('templating');
+		$ajax = $request->isXmlHttpRequest() ? "_ajax" : "";
+		$rest = $name.$ajax.'.html.twig';
+		$template = static::$ENTITY.':'.$rest;
+		if ($temp->exists($template)) {
+			return $template;
+		}
+		$template = static::$DEFAULT_ENTITY.':'.$rest;
+		return $template;
+	}
+	
+
+	/**
+	 * Lists all entities.
+	 *
+	 */
+	public function indexAction(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$entities = $em->getRepository(static::$ENTITY)->findAll();
+		return $this->render(static::$ENTITY.':index.html.twig', $this->extendContext(array(
+				'entities' => $entities
+		)));
+	}
+	
 	/**
 	 * Creates a new entity.
 	 *
@@ -70,7 +83,7 @@ class ExtendedController extends Controller {
 			return $this->redirect($this->generateUrl(static::$LIST_URL));
 		}
 	
-		return $this->render(static::$ENTITY.':new.html.twig', array(
+		return $this->render($this->selectTemplate($request, "new"), array(
 				'entity' => $entity,
 				'form'   => $form->createView(),
 		));
@@ -80,12 +93,12 @@ class ExtendedController extends Controller {
 	 * Displays a form to create a new entity.
 	 *
 	 */
-	public function newAction()
+	public function newAction(Request $request)
 	{
 		$entity = new static::$ENTITY_CLASS();
 		$form   = $this->createCreateForm($entity);
 	
-		return $this->render(static::$ENTITY.':new.html.twig', array(
+		return $this->render($this->selectTemplate($request, "new"), array(
 				'entity' => $entity,
 				'form'   => $form->createView(),
 		));
@@ -95,14 +108,14 @@ class ExtendedController extends Controller {
 	 * Finds and displays an entity.
 	 *
 	 */
-	public function showAction($id)
+	public function showAction(Request $request, $id)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$entity = $em->getRepository(static::$ENTITY)->find($id);
 		if (!$entity) {
 			throw $this->createNotFoundException('Unable to find '.static::$ENTITY.' entity.');
 		}
-		return $this->render(static::$ENTITY.':show.html.twig', array(
+		return $this->render($this->selectTemplate($request, "show"), array(
 			'entity' => $entity,
 		));
 	}
@@ -111,7 +124,7 @@ class ExtendedController extends Controller {
 	 * Displays a form to edit an existing entity.
 	 *
 	 */
-	public function editAction($id)
+	public function editAction(Request $request, $id)
 	{
 		$em = $this->getDoctrine()->getManager();
 	
@@ -122,8 +135,7 @@ class ExtendedController extends Controller {
 		}
 	
 		$editForm = $this->createEditForm($entity);
-	
-		return $this->render(static::$ENTITY.':edit.html.twig', array(
+		return $this->render($this->selectTemplate($request, "edit"), array(
 				'entity'	  => $entity,
 				'edit_form'   => $editForm->createView(),
 		));
@@ -147,7 +159,7 @@ class ExtendedController extends Controller {
 			return $this->redirect($this->generateUrl(static::$LIST_URL));
 		}
 	
-		return $this->render(static::$ENTITY.':edit.html.twig', $this->extendContext(array(
+		return $this->render($this->selectTemplate($request, "edit"), $this->extendContext(array(
 				'entity'	  => $entity,
 				'edit_form'   => $editForm->createView()
 		)));

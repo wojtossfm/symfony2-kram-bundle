@@ -27,12 +27,12 @@
 
 {% macro button_ready_show(url, id) %}
 	{% import _self as widgets %}
-	{{ widgets.button("show", "", url, {"id":id}) }}
+	{{ widgets.button("show", "dialog", url, {"id":id}) }}
 {% endmacro %}
 
 {% macro button_ready_edit(url, id) %}
 	{% import _self as widgets %}
-	{{ widgets.button("edit", "", url, {"id":id}) }}
+	{{ widgets.button("edit", "dialog", url, {"id":id}) }}
 {% endmacro %}
 
 {% macro button_ready_delete(url, id, intention) %}
@@ -42,10 +42,10 @@
 
 {% macro button_ready_new(url) %}
 	{% import _self as widgets %}
-	{{ widgets.button("New entry", "", url, {}) }}
+	{{ widgets.button("New entry", "dialog", url, {}) }}
 {% endmacro %}
 
-{% macro button_to_list(url) %}
+{% macro button_ready_list(url) %}
 	{% import _self as widgets %}
 	{{ widgets.button("back to the list", "", url, {}) }}
 {% endmacro %}

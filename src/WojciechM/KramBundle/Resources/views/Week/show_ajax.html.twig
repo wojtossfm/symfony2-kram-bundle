@@ -1,4 +1,4 @@
-{% extends 'WojciechMKramBundle:Default:base.html.twig' %}
+{% extends 'WojciechMKramBundle:Default:ajax_base.html.twig' %}
 
 {% block content -%}
     <h1>Week</h1>
@@ -24,17 +24,9 @@
         </tbody>
     </table>
 
-        <ul class="record_actions">
+<ul class="actions">
     <li>
-        <a href="{{ path('week') }}">
-            Back to the list
-        </a>
+    	{{ widgets.button_ready_edit('week_edit', entity.id) }}
     </li>
-    <li>
-        <a href="{{ path('week_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

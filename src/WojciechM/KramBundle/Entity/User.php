@@ -1,308 +1,440 @@
 <?php
 
 namespace WojciechM\KramBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * User
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="WojciechM\KramBundle\Repository\UserRepository")
  */
-class User
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+class User implements UserInterface, AdvancedUserInterface, \Serializable,
+		EquatableInterface {
+	/**
+	 * @var integer
+	 *
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="first_name", type="string", length=255)
-     */
-    private $firstName;
+	/**
+	 * @ORM\Column(type="string", length=60, unique=true)
+	 */
+	private $username;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="last_name", type="string", length=255)
-     */
-    private $lastName;
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $password;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
+	/**
+	 * @ORM\Column(type="string", length=255)
+	 */
+	private $salt;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="is_admin", type="boolean")
-     */
-    private $isAdmin;
+	/**
+	 * @ORM\Column(type="string", length=255, unique=true)
+	 */
+	private $email;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_created", type="datetime")
-     */
-    private $dateCreated;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="Week", mappedBy="collectors")
-     **/
-    private $collectionWeeks;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="Week", mappedBy="shoppers")
-     **/
-    private $shoppingWeeks;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Payment", mappedBy="user")
-     **/
-    private $payments;
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="first_name", type="string", length=255)
+	 * @Assert\NotBlank()
+	 */
+	private $firstName;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="last_name", type="string", length=255)
+	 * @Assert\NotBlank()
+	 */
+	private $lastName;
 
-    /**
-     * Set firstName
-     *
-     * @param string $firstName
-     * @return User
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_active", type="boolean")
+	 */
+	private $isActive;
 
-        return $this;
-    }
+	/**
+	 * @var boolean
+	 *
+	 * @ORM\Column(name="is_admin", type="boolean")
+	 */
+	private $isAdmin;
 
-    /**
-     * Get firstName
-     *
-     * @return string 
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
+	/**
+	 * @var \DateTime
+	 *
+	 * @ORM\Column(name="date_created", type="datetime")
+	 */
+	private $dateCreated;
 
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return User
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
+	/**
+	 * @ORM\ManyToMany(targetEntity="Week", mappedBy="collectors")
+	 **/
+	private $collectionWeeks;
 
-        return $this;
-    }
+	/**
+	 * @ORM\ManyToMany(targetEntity="Week", mappedBy="shoppers")
+	 **/
+	private $shoppingWeeks;
 
-    /**
-     * Get lastName
-     *
-     * @return string 
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
+	/**
+	 * @ORM\OneToMany(targetEntity="Payment", mappedBy="user")
+	 **/
+	private $payments;
 
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return User
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
+	/**
+	 * Get id
+	 *
+	 * @return integer 
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set firstName
+	 *
+	 * @param string $firstName
+	 * @return User
+	 */
+	public function setFirstName($firstName) {
+		$this->firstName = $firstName;
 
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
+		return $this;
+	}
 
-    /**
-     * Set isAdmin
-     *
-     * @param boolean $isAdmin
-     * @return User
-     */
-    public function setIsAdmin($isAdmin)
-    {
-        $this->isAdmin = $isAdmin;
+	/**
+	 * Get firstName
+	 *
+	 * @return string 
+	 */
+	public function getFirstName() {
+		return $this->firstName;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set lastName
+	 *
+	 * @param string $lastName
+	 * @return User
+	 */
+	public function setLastName($lastName) {
+		$this->lastName = $lastName;
 
-    /**
-     * Get isAdmin
-     *
-     * @return boolean 
-     */
-    public function getIsAdmin()
-    {
-        return $this->isAdmin;
-    }
+		return $this;
+	}
 
-    /**
-     * Set dateCreated
-     *
-     * @param \DateTime $dateCreated
-     * @return User
-     */
-    public function setDateCreated($dateCreated)
-    {
-        $this->dateCreated = $dateCreated;
+	/**
+	 * Get lastName
+	 *
+	 * @return string 
+	 */
+	public function getLastName() {
+		return $this->lastName;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set isActive
+	 *
+	 * @param boolean $isActive
+	 * @return User
+	 */
+	public function setIsActive($isActive) {
+		$this->isActive = $isActive;
 
-    /**
-     * Get dateCreated
-     *
-     * @return \DateTime 
-     */
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
+		return $this;
+	}
 
-    /**
-     * Add collectionWeeks
-     *
-     * @param \WojciechM\KramBundle\Entity\Week $collectionWeeks
-     * @return User
-     */
-    public function addCollectionWeek(\WojciechM\KramBundle\Entity\Week $collectionWeeks)
-    {
-        $this->collectionWeeks[] = $collectionWeeks;
+	/**
+	 * Get isActive
+	 *
+	 * @return boolean 
+	 */
+	public function getIsActive() {
+		return $this->isActive;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set isAdmin
+	 *
+	 * @param boolean $isAdmin
+	 * @return User
+	 */
+	public function setIsAdmin($isAdmin) {
+		$this->isAdmin = $isAdmin;
 
-    /**
-     * Remove collectionWeeks
-     *
-     * @param \WojciechM\KramBundle\Entity\Week $collectionWeeks
-     */
-    public function removeCollectionWeek(\WojciechM\KramBundle\Entity\Week $collectionWeeks)
-    {
-        $this->collectionWeeks->removeElement($collectionWeeks);
-    }
+		return $this;
+	}
 
-    /**
-     * Get collectionWeeks
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCollectionWeeks()
-    {
-        return $this->collectionWeeks;
-    }
+	/**
+	 * Get isAdmin
+	 *
+	 * @return boolean 
+	 */
+	public function getIsAdmin() {
+		return $this->isAdmin;
+	}
 
-    /**
-     * Add shoppingWeeks
-     *
-     * @param \WojciechM\KramBundle\Entity\Week $shoppingWeeks
-     * @return User
-     */
-    public function addShoppingWeek(\WojciechM\KramBundle\Entity\Week $shoppingWeeks)
-    {
-        $this->shoppingWeeks[] = $shoppingWeeks;
+	/**
+	 * Set dateCreated
+	 *
+	 * @param \DateTime $dateCreated
+	 * @return User
+	 */
+	public function setDateCreated($dateCreated) {
+		$this->dateCreated = $dateCreated;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Remove shoppingWeeks
-     *
-     * @param \WojciechM\KramBundle\Entity\Week $shoppingWeeks
-     */
-    public function removeShoppingWeek(\WojciechM\KramBundle\Entity\Week $shoppingWeeks)
-    {
-        $this->shoppingWeeks->removeElement($shoppingWeeks);
-    }
+	/**
+	 * Get dateCreated
+	 *
+	 * @return \DateTime 
+	 */
+	public function getDateCreated() {
+		return $this->dateCreated;
+	}
 
-    /**
-     * Get shoppingWeeks
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getShoppingWeeks()
-    {
-        return $this->shoppingWeeks;
-    }
+	/**
+	 * Add collectionWeeks
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Week $collectionWeeks
+	 * @return User
+	 */
+	public function addCollectionWeek(
+			\WojciechM\KramBundle\Entity\Week $collectionWeeks) {
+		$this->collectionWeeks[] = $collectionWeeks;
 
-    /**
-     * Add payments
-     *
-     * @param \WojciechM\KramBundle\Entity\Payment $payments
-     * @return User
-     */
-    public function addPayment(\WojciechM\KramBundle\Entity\Payment $payments)
-    {
-        $this->payments[] = $payments;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Remove collectionWeeks
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Week $collectionWeeks
+	 */
+	public function removeCollectionWeek(
+			\WojciechM\KramBundle\Entity\Week $collectionWeeks) {
+		$this->collectionWeeks->removeElement($collectionWeeks);
+	}
 
-    /**
-     * Remove payments
-     *
-     * @param \WojciechM\KramBundle\Entity\Payment $payments
-     */
-    public function removePayment(\WojciechM\KramBundle\Entity\Payment $payments)
-    {
-        $this->payments->removeElement($payments);
-    }
+	/**
+	 * Get collectionWeeks
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getCollectionWeeks() {
+		return $this->collectionWeeks;
+	}
 
-    /**
-     * Get payments
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPayments()
-    {
-        return $this->payments;
-    }
-    
-    public function __toString() {
-    	return $this->lastName . " " . $this->firstName;
-    }
+	/**
+	 * Add shoppingWeeks
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Week $shoppingWeeks
+	 * @return User
+	 */
+	public function addShoppingWeek(
+			\WojciechM\KramBundle\Entity\Week $shoppingWeeks) {
+		$this->shoppingWeeks[] = $shoppingWeeks;
+
+		return $this;
+	}
+
+	/**
+	 * Remove shoppingWeeks
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Week $shoppingWeeks
+	 */
+	public function removeShoppingWeek(
+			\WojciechM\KramBundle\Entity\Week $shoppingWeeks) {
+		$this->shoppingWeeks->removeElement($shoppingWeeks);
+	}
+
+	/**
+	 * Get shoppingWeeks
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getShoppingWeeks() {
+		return $this->shoppingWeeks;
+	}
+
+	/**
+	 * Add payments
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Payment $payments
+	 * @return User
+	 */
+	public function addPayment(\WojciechM\KramBundle\Entity\Payment $payments) {
+		$this->payments[] = $payments;
+
+		return $this;
+	}
+
+	/**
+	 * Remove payments
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Payment $payments
+	 */
+	public function removePayment(
+			\WojciechM\KramBundle\Entity\Payment $payments) {
+		$this->payments->removeElement($payments);
+	}
+
+	/**
+	 * Get payments
+	 *
+	 * @return \Doctrine\Common\Collections\Collection 
+	 */
+	public function getPayments() {
+		return $this->payments;
+	}
+
+	public function __toString() {
+		return $this->lastName . " " . $this->firstName;
+	}
 
 	public function __construct() {
+		$this->salt = md5(uniqid());
 		$this->dateCreated = new \DateTime();
 		$this->collectionWeeks = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->shoppingWeeks = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->payments = new \Doctrine\Common\Collections\ArrayCollection();
 	}
+
+	public function isAccountNonExpired() {
+		return $this->getIsActive();
+	}
+	public function isAccountNonLocked() {
+		return $this->getIsActive();
+
+	}
+	public function isCredentialsNonExpired() {
+		return $this->getIsActive();
+
+	}
+	public function isEnabled() {
+		return $this->getIsActive();
+	}
+
+	public function getRoles() {
+		$roles = array();
+		$roles[] = "ROLE_USER";
+		if ($this->getIsAdmin()) {
+			$roles[] = "ROLE_ADMIN";
+		}
+		return $roles;
+	}
+
+	public function getPassword() {
+		return $this->password;
+	}
+
+	public function getSalt() {
+		return $this->salt;
+	}
+
+	public function getUsername() {
+		return $this->username;
+	}
+
+	public function eraseCredentials() {
+		$this->password = "";
+		$this->username = "";
+		$this->salt = "";
+	}
+
+	/**
+	 * @see \Serializable::serialize()
+	 */
+	public function serialize() {
+		return serialize(
+				array($this->id, $this->username, $this->password, $this->salt,
+						$this->isActive, $this->isAdmin,));
+	}
+
+	/**
+	 * @see \Serializable::unserialize()
+	 */
+	public function unserialize($serialized) {
+		list($this->id, $this->username, $this->password, $this->salt, $this
+				->isActive, $this->isAdmin, ) = unserialize($serialized);
+	}
+
+	/**
+	 * Set username
+	 *
+	 * @param string $username
+	 * @return User
+	 */
+	public function setUsername($username) {
+		$this->username = $username;
+
+		return $this;
+	}
+
+	/**
+	 * Set password
+	 *
+	 * @param string $password
+	 * @return User
+	 */
+	public function setPassword($password) {
+		$this->password = $password;
+
+		return $this;
+	}
+
+	/**
+	 * Set salt
+	 *
+	 * @param string $salt
+	 * @return User
+	 */
+	public function setSalt($salt) {
+		$this->salt = $salt;
+
+		return $this;
+	}
+
+	/**
+	 * Set email
+	 *
+	 * @param string $email
+	 * @return User
+	 */
+	public function setEmail($email) {
+		$this->email = $email;
+
+		return $this;
+	}
+
+	/**
+	 * Get email
+	 *
+	 * @return string 
+	 */
+	public function getEmail() {
+		return $this->email;
+	}
+	
+	public function isEqualTo(UserInterface $user) {
+		return $this->id === $user->getId();
+	}
+
 }

@@ -25,12 +25,12 @@
                 <td>{{ entity.isAdmin }}</td>
                 <td>{% if entity.dateCreated %}{{ entity.dateCreated|date('Y-m-d H:i') }}{% endif %}</td>
                 <td>
-                <ul>
+                <ul class="actions">
                     <li>
-                        <a href="{{ path('user_show', { 'id': entity.id }) }}">show</a>
+                    	{{ widgets.button_ready_show('user_show', entity.id) }}
                     </li>
                     <li>
-                        <a href="{{ path('user_edit', { 'id': entity.id }) }}">edit</a>
+                    	{{ widgets.button_ready_edit('user_edit', entity.id) }}
                     </li>
                 </ul>
                 </td>
@@ -39,11 +39,9 @@
         </tbody>
     </table>
 
-        <ul>
+        <ul class="actions">
         <li>
-            <a href="{{ path('user_new') }}">
-                Create a new entry
-            </a>
+            {{ widgets.button_ready_new('user_new') }}
         </li>
     </ul>
     {% endblock %}

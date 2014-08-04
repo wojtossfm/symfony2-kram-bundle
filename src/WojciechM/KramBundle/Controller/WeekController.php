@@ -14,8 +14,8 @@ use WojciechM\KramBundle\Form\WeekType;
  */
 class WeekController extends ExtendedController {
 	protected static $ENTITY = 'WojciechMKramBundle:Week';
-	protected static $ENTITY_CLASS = "Week";
-	protected static $ENTITY_FORM = "WeekType";
+	protected static $ENTITY_CLASS = "WojciechM\KramBundle\Entity\Week";
+	protected static $ENTITY_FORM = "WojciechM\KramBundle\Form\WeekType";
 	protected static $LIST_URL = 'week';
 	protected static $CREATE_URL = 'week_create';
 	protected static $UPDATE_URL = 'week_update';
@@ -24,9 +24,9 @@ class WeekController extends ExtendedController {
      * Lists all Week entities.
      *
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $weeks = $em->getRepository('WojciechMKramBundle:Week')->findAllWithJoins();
+        $weeks = $em->getRepository(static::$ENTITY)->findAllWithJoins();
         return $this->render(static::$ENTITY.':index.html.twig', array(
             'entities' => $weeks,
         ));
