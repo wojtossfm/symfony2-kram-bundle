@@ -119,4 +119,14 @@ class Expense
     {
         return $this->week;
     }
+    
+
+    public function __construct() {
+    	$this->dateCreated = new \DateTime();
+    }
+    
+    public function __toString() {
+    	return $this->getValue();
+    }
+    
 }

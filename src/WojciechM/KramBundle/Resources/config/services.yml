@@ -5,3 +5,12 @@ services:
 #    wojciech_m_kram.example:
 #        class: %wojciech_m_kram.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    wojciech_m_kram.twig.variable_filter:
+        class: WojciechM\KramBundle\Twig\VariableFilter
+        tags:
+            - { name: twig.extension }
+    ajax.authentication_listener:
+        class: WojciechM\KramBundle\EventListener\AuthenticationListener
+        arguments: [@service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 1000 }

@@ -1,0 +1,19 @@
+{% extends 'form_table_layout.html.twig' %}
+
+{% block button_row -%}
+<tr>
+<td colspan="2">
+{{- form_widget(form) -}}
+</td>
+</tr>
+{% endblock button_row %}
+
+{% block form_errors -%}
+	{% if errors|length > 0 -%}
+		<ul class="ui-state-error">
+		{%- for error in errors -%}
+			<li>{{ error.message }}</li>
+		{%- endfor -%}
+		</ul>
+	{%- endif %}
+{%- endblock form_errors %}

@@ -32,6 +32,13 @@ class Debt
      * @ORM\Column(name="amount", type="decimal")
      */
     private $amount;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="string", nullable=True)
+     */
+    private $comment;
 
     /**
      * @var \DateTime
@@ -146,12 +153,35 @@ class Debt
     {
         return $this->week;
     }
-    
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return Debt
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
     public function __construct() {
     	$this->dateCreated = new \DateTime();
     }
     
     public function __toString() {
-    	return $this->user . " " .$this->getAmount();	
+    	return $this->user . " " .$this->getAmount();
     }
 }

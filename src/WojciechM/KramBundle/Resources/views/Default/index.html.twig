@@ -1,0 +1,51 @@
+{% extends 'WojciechMKramBundle:Default:base.html.twig' %}
+
+{% block content -%}
+    <h1>{{ presentation.labels.plural|trans }}</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+            	{% for field in presentation.fields %}
+            		<th>{{ field.label|trans }}</th>
+            	{% endfor %}
+            	{% if presentation.rowActions %}
+            		<th>
+            			{% trans %}Actions{% endtrans %}
+            		</th>
+            	{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+            	{% for field in presentation.fields %}
+            		<td>
+            		{% include "WojciechMKramBundle:Default:present_field.html.twig" %}
+            		</td>
+            	{% endfor %}
+                {% if presentation.rowActions %}
+                <td>
+                	<ul class="actions">
+                		{% if presentation.rowActions.show is defined %}
+                			<li>{{ widgets.button_ready_show(presentation.rowActions.show, entity.id) }}</li>
+                		{% endif %}
+                		{% if presentation.rowActions.edit is defined %}
+                			<li>{{ widgets.button_ready_edit(presentation.rowActions.edit, entity.id) }}</li>
+                		{% endif %}
+                	</ul>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+<ul class="actions">
+	{% if presentation.generalActions.new is defined %}
+		<li>
+			{{ widgets.button_ready_new('payment_entry')}}
+		</li>
+	{% endif %}
+</ul>
+{% endblock %}

@@ -49,3 +49,8 @@
 	{% import _self as widgets %}
 	{{ widgets.button("back to the list", "", url, {}) }}
 {% endmacro %}
+
+{% macro button_nav(name, classes, url, params) %}
+	{% import _self as widgets %}
+	{{ widgets.button(name, "#{classes} nav", url, params) }}
+{% endmacro %}

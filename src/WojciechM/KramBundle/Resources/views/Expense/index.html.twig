@@ -1,0 +1,53 @@
+{% extends 'WojciechMKramBundle:Default:base.html.twig' %}
+
+{% block content -%}
+    <h1>Expense list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>{% trans %}Week{% endtrans %}</th>
+                <th>{% trans %}Value{% endtrans %}</th>
+                <th>{% trans %}Created{% endtrans %}</th>
+                <th>{% trans %}Comment{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>
+                	<ul>
+                		{% if entity.week %}
+	                		<li>{% if entity.week.start %}{{ entity.week.start|date('Y-m-d') }}{%else%} ? {% endif %}</li>
+	                		<li>{% if entity.week.end %}{{ entity.week.end|date('Y-m-d') }}{%else%} ? {% endif %}</li>
+                		{% endif %}
+                	</ul>
+                </td>
+                <td>{{ entity.value }}</td>
+                <td>{{ entity.dateCreated|date('Y-m-d H:i') }}</td>
+                <td>{{ entity.comment }}</td>
+                <td>
+                <ul class="actions">
+                    <li>
+                    	{{ widgets.button_ready_show('expense_show', entity.id) }}
+                    </li>
+                    <li>
+                    	{{ widgets.button_ready_edit('expense_edit', entity.id) }}
+                    </li>
+                    <li>
+                    	{{ widgets.button_ready_delete('expense_delete', entity.id, intention_delete)}}
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul class="actions">
+             <li>
+             	{{ widgets.button_ready_new('expense_new')}}
+             </li>
+    </ul>
+    {% endblock %}

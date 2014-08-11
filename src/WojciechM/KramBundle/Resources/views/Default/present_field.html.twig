@@ -1,0 +1,24 @@
+{% if field.type == "single" %}
+	{{ attribute(entity, field.property)|stringify(field.format) }}
+{% elseif field.type == "properties" %}
+	<ul>
+		{% for prop in field.property %}
+			<li> {{ attribute(entity, prop)|stringify(field.format) }}
+		{% endfor %}
+	</ul>
+{% elseif field.type == "values" %}
+	<ul>
+		{% for key, value in attribute(entity, field.property) %}
+			<li> {{ value|stringify(field.format) }}
+		{% endfor %}
+	</ul>
+{% elseif field.type == "list" %}
+	<ul>
+		{% set values = attribute(entity, field.property) %}
+		{% if values %}
+			{% for value in values %}
+				<li> {{ value|stringify(field.format) }}
+			{% endfor %}
+		{% endif %}
+	</ul>
+{% endif %}

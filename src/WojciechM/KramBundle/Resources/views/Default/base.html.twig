@@ -34,11 +34,13 @@
 			{% block nav %}
 				{% if app.user %}
 					<ul class="nav">
-						<li><a href={{ path("week") }}>{% trans %}Weeks{% endtrans %}</a></li>
-						<li><a href={{ path("payment_entry") }}>{% trans %}Payments{% endtrans %}</a></li>
-						<li><a href={{ path("debt") }}>{% trans %}Debts{% endtrans %}</a></li>
-						<li><a href={{ path("user") }}>{% trans %}Users{% endtrans %}</a></li>
-						<li><a href={{ path("logout") }}>{% trans %}Logout{% endtrans %}</a></li>
+						<li>{{ widgets.button_nav("Weeks", "", "week", {})}}</li>
+						<li>{{ widgets.button_nav("Payments", "", "payment_entry", {})}}</li>
+						<li>{{ widgets.button_nav("Debts", "", "debt", {})}}</li>
+						<li>{{ widgets.button_nav("Expenses", "", "expense", {})}}</li>
+						<li>{{ widgets.button_nav("Shopping list", "", "shoppinglist", {})}}</li>
+						<li>{{ widgets.button_nav("Users", "", "user", {})}}</li>
+						<li>{{ widgets.button_nav("Logout", "", "logout", {})}}</li>
 					</ul>
 				{% endif %}
 			{% endblock %}

@@ -1,0 +1,30 @@
+expense:
+    path:     /
+    defaults: { _controller: "WojciechMKramBundle:Expense:index" }
+
+expense_show:
+    path:     /{id}/show
+    defaults: { _controller: "WojciechMKramBundle:Expense:show" }
+
+expense_new:
+    path:     /new
+    defaults: { _controller: "WojciechMKramBundle:Expense:new" }
+
+expense_create:
+    path:     /create
+    defaults: { _controller: "WojciechMKramBundle:Expense:create" }
+    requirements: { _method: post }
+
+expense_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "WojciechMKramBundle:Expense:edit" }
+
+expense_update:
+    path:     /{id}/update
+    defaults: { _controller: "WojciechMKramBundle:Expense:update" }
+    requirements: { _method: post|put }
+
+expense_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WojciechMKramBundle:Expense:delete" }
+    requirements: { _method: post|delete }

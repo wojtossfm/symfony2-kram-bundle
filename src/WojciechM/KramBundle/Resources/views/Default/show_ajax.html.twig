@@ -1,0 +1,24 @@
+{% extends 'WojciechMKramBundle:Default:ajax_base.html.twig' %}
+
+{% block content -%}
+    <h1>{{ presentation.labels.single|trans }}</h1>
+
+    <table class="record_properties">
+        <tbody>
+        	{% for field in presentation.fields %}
+        		<tr>
+            		<th>{{ field.label|trans }}</th>
+            		<td>
+            			{% include "WojciechMKramBundle:Default:present_field.html.twig" %}
+            		</td>
+            	</tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<ul class="actions">
+	{% if presentation.rowActions.edit is defined %}
+    	<li>{{ widgets.button_ready_edit(presentation.rowActions.edit, entity.id) }}</li>
+    {% endif %}
+</ul>
+{% endblock %}
