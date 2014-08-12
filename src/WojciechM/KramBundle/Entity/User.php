@@ -26,11 +26,13 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 
 	/**
 	 * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\Length(min=2, max=60)
 	 */
 	private $username;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=8)
 	 */
 	private $password;
 
@@ -41,6 +43,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 
 	/**
 	 * @ORM\Column(type="string", length=255, unique=true)
+	 * @Assert\Email()
 	 */
 	private $email;
 
@@ -48,7 +51,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	 * @var string
 	 *
 	 * @ORM\Column(name="first_name", type="string", length=255)
-	 * @Assert\NotBlank()
+	 * @Assert\Length(min=2, max=255)
 	 */
 	private $firstName;
 
@@ -56,7 +59,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	 * @var string
 	 *
 	 * @ORM\Column(name="last_name", type="string", length=255)
-	 * @Assert\NotBlank()
+	 * @Assert\Length(min=2, max=255)
 	 */
 	private $lastName;
 

@@ -1,8 +1,13 @@
 <?php
 
+namespace WojciechM\KramBundle\Presentation;
+
 class PresentationField {
-	public static final $TYPE_LIST = "list";
-	public static final $TYPE_SINGLE = "single";
+	public static $TYPE_LIST = "list";
+	public static $TYPE_SINGLE = "single";
+	public static $TYPE_PROP = "properties";
+	public static $TYPE_VAL = "values";
+	public static $FORMAT_DATE = "date";
 	private $type;
 	private $property;
 	private $label;

@@ -6,14 +6,15 @@
     <div>{{ error.message }}</div>
 {% endif %}
 
-<form action="{{ path('login_check') }}" method="post">
-
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" /><br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" /><br>
-
+<form class="login tabular" action="{{ path('login_check') }}" method="post">
+	<div>
+	    <label for="username">Username:</label>
+	    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+	</div>
+	<div>
+	    <label for="password">Password:</label>
+	    <input type="password" id="password" name="_password" /><br>
+	</div>
     {{ widgets.button("login") }}
 </form>
 {% endblock %}

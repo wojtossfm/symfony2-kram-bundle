@@ -15,6 +15,7 @@ use WojciechM\KramBundle\Form\DebtType;
 class DebtController extends ExtendedController {
 	protected static $ENTITY = 'WojciechMKramBundle:Debt';
 	protected static $ENTITY_CLASS = "WojciechM\KramBundle\Entity\Debt";
+	protected static $ENTITY_PRESENTATION = "WojciechM\KramBundle\Presentation\DebtPresentation";
 	protected static $ENTITY_FORM = "WojciechM\KramBundle\Form\DebtType";
 	protected static $LIST_URL = 'debt';
 	protected static $CREATE_URL = 'debt_create';

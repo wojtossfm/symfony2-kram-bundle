@@ -3,6 +3,7 @@
 namespace WojciechM\KramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ShoppingListEntry
@@ -25,6 +26,8 @@ class ShoppingListEntry
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=2, max=255)
      */
     private $name;
 

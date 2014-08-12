@@ -62,3 +62,21 @@ span.summary {
 		color: green;
 	}
 }
+
+.tabular {
+	display: table;
+	> div {
+		display: table-row;
+		> * {
+			display: table-cell;
+		}
+	}
+}
+
+form.login {
+	padding: 50px;
+	margin: 100px auto 100px auto;
+	background-color: $blueprint-dark-background;
+	color: $blueprint-dark-color;
+	@include border-radius;
+}

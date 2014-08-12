@@ -3,10 +3,11 @@
 namespace WojciechM\KramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Debt
- *
+ 
  * @ORM\Table()
  * @ORM\Entity()
  */
@@ -28,15 +29,16 @@ class Debt
 
     /**
      * @var string
-     *
      * @ORM\Column(name="amount", type="decimal")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0)
      */
     private $amount;
     
     /**
      * @var string
-     *
      * @ORM\Column(name="comment", type="string", nullable=True)
+     * @Assert\Length(max=255)
      */
     private $comment;
 

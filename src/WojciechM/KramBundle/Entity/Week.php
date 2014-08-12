@@ -3,6 +3,7 @@
 namespace WojciechM\KramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Week
@@ -327,7 +328,7 @@ class Week
     		$value = isset($summary[$uid]) ? $summary[$uid]["amount"] : 0;
     		$summary[$uid] = array("user"=>$debt->getUser(), "amount"=>$payment->getAmount() + $value);
     	}
-    	return $summary;
+    	return array_values($summary);
     }
 
     public function __construct() {
@@ -342,6 +343,6 @@ class Week
     }
     
     public function __toString() {
-    	return $this->start->format('Y-m-d')."-".$this->end->format('Y-m-d');
+    	return $this->start->format('Y-m-d')." - ".$this->end->format('Y-m-d');
     }
 }

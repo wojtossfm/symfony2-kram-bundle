@@ -3,6 +3,7 @@
 namespace WojciechM\KramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Expense
@@ -31,9 +32,11 @@ class Expense
     /**
      * @var string
      *
-     * @ORM\Column(name="value", type="decimal")
+     * @ORM\Column(name="amount", type="decimal")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0)
      */
-    private $value;
+    private $amount;
 
     /**
      * @ORM\ManyToOne(targetEntity="Week", inversedBy="expenses")
@@ -75,26 +78,26 @@ class Expense
     }
 
     /**
-     * Set value
+     * Set amount
      *
-     * @param string $value
+     * @param string $amount
      * @return Expense
      */
-    public function setValue($value)
+    public function setAmount($amount)
     {
-        $this->value = $value;
+        $this->amount = $amount;
 
         return $this;
     }
 
     /**
-     * Get value
+     * Get amount
      *
      * @return string 
      */
-    public function getValue()
+    public function getAmount()
     {
-        return $this->value;
+        return $this->amount;
     }
 
     /**
@@ -126,7 +129,7 @@ class Expense
     }
     
     public function __toString() {
-    	return $this->getValue();
+    	return $this->getAmount();
     }
     
 }

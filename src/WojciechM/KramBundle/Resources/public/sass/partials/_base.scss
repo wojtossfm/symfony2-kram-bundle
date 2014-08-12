@@ -9,11 +9,14 @@ $blueprint-button-font-family: "Lucida Grande", Tahoma, Arial, Verdana, sans-ser
 $blueprint-button-border-color: #dedede;
 
 $blueprint-button-background-color: whitesmoke;
-$blueprint-button-font-color: #565656;
+$blueprint-button-font-color: #336699;
 $blueprint-button-hover-border-color: #c2e1ef;
 
 $blueprint-button-hover-background-color: #dff4ff;
-$blueprint-button-hover-font-color: #336699;
+$blueprint-button-hover-font-color: lighter($blueprint-button-font-color, 20%);
 $blueprint-button-active-border-color: #6299c5;
 
 $blueprint-button-active-background-color: #6299c5;
+
+$blueprint-dark-background: teal;
+$blueprint-dark-color: white;

@@ -33,6 +33,9 @@
                 		{% if presentation.rowActions.edit is defined %}
                 			<li>{{ widgets.button_ready_edit(presentation.rowActions.edit, entity.id) }}</li>
                 		{% endif %}
+                		{% if presentation.rowActions.delete is defined %}
+                			<li>{{ widgets.button_ready_delete(presentation.rowActions.delete, entity.id) }}</li>
+                		{% endif %}
                 	</ul>
                 </td>
                 {% endif %}
@@ -44,7 +47,7 @@
 <ul class="actions">
 	{% if presentation.generalActions.new is defined %}
 		<li>
-			{{ widgets.button_ready_new('payment_entry')}}
+			{{ widgets.button_ready_new(presentation.generalActions.new)}}
 		</li>
 	{% endif %}
 </ul>

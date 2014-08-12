@@ -2,22 +2,20 @@
 
 namespace WojciechM\KramBundle\Presentation;
 class WeekPresentation extends Presentation {
-	protected $fields = array(
-			array("type" => "properties", "property" => array("start", "end"),
-					"label" => "Dates", "format" => "date"),
-			array("type" => "single", "property" => "fee", "label" => "Fee",
-					"format" => NULL),
-			array("type" => "values", "property" => "summary",
-					"label" => "Summary", "format" => "summary"),
-			array("type" => "list", "property" => "shoppers",
-					"label" => "Shoppers", "format" => NULL),
-			array("type" => "list", "property" => "collectors",
-					"label" => "Collectors", "format" => NULL),
-			array("type" => "list", "property" => "expenses",
-					"label" => "Expenses", "format" => NULL),);
-
-	protected $rowActions = array("show" => "week_show", "edit" => "week_edit",);
-
-	protected $labels = array('plural' => 'Weeks', 'single' => 'Week');
+	
+	public function __construct() {
+		$this->fields = array(
+			new PresentationField(PresentationField::$TYPE_PROP, 
+				array("start", "end"), "Dates", "date"),
+			new PresentationField(PresentationField::$TYPE_SINGLE, "fee", "Fee", NULL),
+			new PresentationField(PresentationField::$TYPE_LIST, "summary", "Summary", "summary"),
+			new PresentationField(PresentationField::$TYPE_LIST, "shoppers", "Shoppers", NULL),
+			new PresentationField(PresentationField::$TYPE_LIST, "collectors", "Collectors", NULL),
+			new PresentationField(PresentationField::$TYPE_LIST, "expenses", "Expenses", NULL),
+		);
+		$this->rowActions = array("show" => "week_show", "edit" => "week_edit",);
+		$this->labels = array('plural' => 'Weeks', 'single' => 'Week');
+		$this->generalActions = array("new" => "week_new");
+	}
 
 }

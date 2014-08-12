@@ -16,13 +16,9 @@ WojciechMKramBundle_user:
         resource: "@WojciechMKramBundle/Resources/config/routing/user.yml"
         prefix:   /user
 
-WojciechMKramBundle_payment_type:
-        resource: "@WojciechMKramBundle/Resources/config/routing/paymenttype.yml"
-        prefix:   /payment/type
-
-WojciechMKramBundle_payment_entry:
+WojciechMKramBundle_payment:
         resource: "@WojciechMKramBundle/Resources/config/routing/payment.yml"
-        prefix:   /payment/entry
+        prefix:   /payment/
 
 WojciechMKramBundle_expense:
         resource: "@WojciechMKramBundle/Resources/config/routing/expense.yml"

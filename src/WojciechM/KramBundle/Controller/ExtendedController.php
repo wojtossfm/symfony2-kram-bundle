@@ -14,6 +14,7 @@ class InvalidEntityException extends \Exception {
  *
  */
 class ExtendedController extends Controller {
+	#TODO: Move URL variables into presentation and retrieve them from there.
 	protected static $ACTION_REDIRECT = "redirect";
 	protected static $ENTITY = '';
 	protected static $ENTITY_PRESENTATION = "";
@@ -108,7 +109,6 @@ class ExtendedController extends Controller {
 		$form = $this->createCreateForm($entity);
 		$form->handleRequest($request);
 		$valid = $form->isValid();
-		$response = $this->getResponse($valid, $target);
 		if ($valid) {
 			$em = $this->getDoctrine()->getManager();
 			$this->validCreatePre($entity, $em);

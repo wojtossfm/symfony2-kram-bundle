@@ -19,7 +19,6 @@ class UserType extends AbstractType
             ->add('lastName')
             ->add('isActive')
             ->add('isAdmin')
-        //    ->add('dateCreated')
         ;
     }
     

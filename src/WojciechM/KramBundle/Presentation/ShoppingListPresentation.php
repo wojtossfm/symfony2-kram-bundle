@@ -10,7 +10,7 @@ class ShoppingListPresentation extends Presentation {
 		);
 		$this->rowActions = array("show" => "shoppinglist_show", "edit" => "shoppinglist_edit");
 		$this->labels = array('plural' => 'Shopping Lists', 'single' => 'Shopping List');
-		$this->generalActions = array();
+		$this->generalActions = array("new" => "shoppinglist_new");
 	}
 
 }

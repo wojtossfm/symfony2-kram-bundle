@@ -160,7 +160,7 @@ a.button {
   padding: 5px 10px 5px 7px;
   background-color: whitesmoke;
   border-color: #eeeeee #dedede #dedede #eeeeee;
-  color: #565656;
+  color: #336699;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -180,7 +180,7 @@ a.button img {
 a.button:hover {
   background-color: #dff4ff;
   border-color: #d2f1ff #c2e1ef #c2e1ef #d2f1ff;
-  color: #336699;
+  color: lighter(#336699, 20%);
 }
 /* line 47, ../../../../../../../../../../usr/share/compass/frameworks/blueprint/stylesheets/blueprint/_buttons.scss */
 a.button:active {
@@ -211,7 +211,7 @@ button.button {
   padding: 4px 10px 3px 7px;
   background-color: whitesmoke;
   border-color: #eeeeee #dedede #dedede #eeeeee;
-  color: #565656;
+  color: #336699;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   -ms-border-radius: 5px;
@@ -240,7 +240,7 @@ button.button[type] {
 button.button:hover {
   background-color: #dff4ff;
   border-color: #d2f1ff #c2e1ef #c2e1ef #d2f1ff;
-  color: #336699;
+  color: lighter(#336699, 20%);
 }
 /* line 47, ../../../../../../../../../../usr/share/compass/frameworks/blueprint/stylesheets/blueprint/_buttons.scss */
 button.button:active {
@@ -615,4 +615,30 @@ span.summary.debt {
 /* line 61, ../sass/screen.scss */
 span.summary.paid {
   color: green;
+}
+
+/* line 66, ../sass/screen.scss */
+.tabular {
+  display: table;
+}
+/* line 68, ../sass/screen.scss */
+.tabular > div {
+  display: table-row;
+}
+/* line 70, ../sass/screen.scss */
+.tabular > div > * {
+  display: table-cell;
+}
+
+/* line 76, ../sass/screen.scss */
+form.login {
+  padding: 50px;
+  margin: 100px auto 100px auto;
+  background-color: teal;
+  color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
 }

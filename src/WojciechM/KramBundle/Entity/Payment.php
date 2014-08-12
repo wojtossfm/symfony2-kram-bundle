@@ -3,6 +3,7 @@
 namespace WojciechM\KramBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Payment
@@ -35,6 +36,8 @@ class Payment
      * @var string
      *
      * @ORM\Column(name="amount", type="decimal")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=0)
      */
     private $amount;
 

@@ -14,6 +14,7 @@ use WojciechM\KramBundle\Form\ExpenseType;
 class ExpenseController extends ExtendedController {
 	protected static $ENTITY = 'WojciechMKramBundle:Expense';
 	protected static $ENTITY_CLASS = "WojciechM\KramBundle\Entity\Expense";
+	protected static $ENTITY_PRESENTATION = "WojciechM\KramBundle\Presentation\ExpensePresentation";
 	protected static $ENTITY_FORM = "WojciechM\KramBundle\Form\ExpenseType";
 	protected static $LIST_URL = 'expense';
 	protected static $CREATE_URL = 'expense_create';

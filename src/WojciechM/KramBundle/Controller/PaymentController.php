@@ -14,9 +14,10 @@ use WojciechM\KramBundle\Form\PaymentType;
  */
 class PaymentController extends ExtendedController {
 	protected static $ENTITY = 'WojciechMKramBundle:Payment';
-	protected static $ENTITY_CLASS = "Payment";
-	protected static $ENTITY_FORM = "PaymentType";
-	protected static $LIST_URL = 'payment_entry';
+	protected static $ENTITY_CLASS = "WojciechM\KramBundle\Entity\Payment";
+	protected static $ENTITY_PRESENTATION = "WojciechM\KramBundle\Presentation\PaymentPresentation";
+	protected static $ENTITY_FORM = "WojciechM\KramBundle\Form\PaymentType";
+	protected static $LIST_URL = 'payment';
 	protected static $CREATE_URL = 'payment_create';
 	protected static $UPDATE_URL = 'payment_update';
 	
