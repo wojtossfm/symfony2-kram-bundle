@@ -6,12 +6,6 @@
 			<li> {{ attribute(entity, prop)|stringify(field.format) }}
 		{% endfor %}
 	</ul>
-{% elseif field.type == "values" %}
-	<ul>
-		{% for key, value in attribute(entity, field.property) %}
-			<li> {{ value|stringify(field.format) }}
-		{% endfor %}
-	</ul>
 {% elseif field.type == "list" %}
 	<ul>
 		{% set values = attribute(entity, field.property) %}
