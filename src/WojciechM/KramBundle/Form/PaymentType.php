@@ -18,7 +18,7 @@ class PaymentType extends AbstractType
             ->add('user')
             ->add('type')
             ->add('amount')
-            ->add('dateCreated', null, array("widget"=>"single_text"))
+            ->add('comment')
         ;
     }
     

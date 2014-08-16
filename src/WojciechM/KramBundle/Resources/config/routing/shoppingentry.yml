@@ -1,0 +1,25 @@
+shopping_widget:
+    path:     /
+    defaults: { _controller: WojciechMKramBundle:ShoppingListEntry:new }
+
+shopping_widget_entry:
+    path:     /new
+    defaults: { _controller: WojciechMKramBundle:ShoppingListEntry:create }
+
+shopping_widget_vote:
+    path:     /{id}/vote
+    defaults: { _controller: "WojciechMKramBundle:ShoppingListEntry:vote" }
+    requirements: { _method: post }
+
+shopping_widget_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "WojciechMKramBundle:ShoppingListEntry:delete" }
+    requirements: { _method: post|delete }
+
+shopping_widget_report:
+    path:     /report
+    defaults: { _controller: "WojciechMKramBundle:ShoppingListEntry:report" }
+
+shopping_widget_close:
+    path:     /close
+    defaults: { _controller: "WojciechMKramBundle:ShoppingListEntry:close" }

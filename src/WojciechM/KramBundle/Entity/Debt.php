@@ -23,7 +23,7 @@ class Debt
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="debts")
      **/
     private $user;
 
@@ -50,7 +50,7 @@ class Debt
     private $dateCreated;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Week", inversedBy="payments")
+     * @ORM\ManyToOne(targetEntity="Week", inversedBy="debts")
      **/
     private $week;
 

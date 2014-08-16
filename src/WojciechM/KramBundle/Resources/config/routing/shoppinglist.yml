@@ -5,25 +5,7 @@ shoppinglist:
 shoppinglist_show:
     path:     /{id}/show
     defaults: { _controller: "WojciechMKramBundle:ShoppingList:show" }
-
-shoppinglist_new:
-    path:     /new
-    defaults: { _controller: "WojciechMKramBundle:ShoppingList:new" }
-
-shoppinglist_create:
-    path:     /create
-    defaults: { _controller: "WojciechMKramBundle:ShoppingList:create" }
-    requirements: { _method: post }
-
-shoppinglist_edit:
-    path:     /{id}/edit
-    defaults: { _controller: "WojciechMKramBundle:ShoppingList:edit" }
-
-shoppinglist_update:
-    path:     /{id}/update
-    defaults: { _controller: "WojciechMKramBundle:ShoppingList:update" }
-    requirements: { _method: post|put }
-
+    
 shoppinglist_delete:
     path:     /{id}/delete
     defaults: { _controller: "WojciechMKramBundle:ShoppingList:delete" }

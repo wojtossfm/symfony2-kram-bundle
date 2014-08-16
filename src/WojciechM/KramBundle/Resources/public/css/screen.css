@@ -300,7 +300,22 @@ a.negative:active, button.negative:active {
   color: white;
 }
 
-/* line 19, ../sass/screen.scss */
+/* line 8, ../sass/partials/_widgets.scss */
+.widget.shopping {
+  display: inline;
+  float: left;
+  overflow: hidden;
+  width: 49.466%;
+  margin-right: 1.042%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+/* line 20, ../sass/screen.scss */
 header, footer {
   display: inline;
   float: left;
@@ -309,7 +324,7 @@ header, footer {
   margin-right: 1.042%;
 }
 
-/* line 26, ../sass/screen.scss */
+/* line 27, ../sass/screen.scss */
 body {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -571,7 +586,7 @@ form textarea {
   height: 250px;
 }
 
-/* line 36, ../sass/screen.scss */
+/* line 37, ../sass/screen.scss */
 body.two-col #container {
   min-width: 950px;
   width: 80%;
@@ -579,7 +594,7 @@ body.two-col #container {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 39, ../sass/screen.scss */
+/* line 40, ../sass/screen.scss */
 body.two-col #header, body.two-col #footer {
   display: inline;
   float: left;
@@ -587,7 +602,7 @@ body.two-col #header, body.two-col #footer {
   width: 99.974%;
   margin-right: 1.042%;
 }
-/* line 42, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 body.two-col #sidebar {
   display: inline;
   float: left;
@@ -595,7 +610,7 @@ body.two-col #sidebar {
   width: 32.63%;
   margin-right: 1.042%;
 }
-/* line 47, ../sass/screen.scss */
+/* line 48, ../sass/screen.scss */
 body.two-col #content {
   display: inline;
   float: left;
@@ -604,33 +619,33 @@ body.two-col #content {
   margin-right: 0;
 }
 
-/* line 56, ../sass/screen.scss */
+/* line 57, ../sass/screen.scss */
 span.summary {
   font-weight: bold;
 }
-/* line 58, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 span.summary.debt {
   color: red;
 }
-/* line 61, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 span.summary.paid {
   color: green;
 }
 
-/* line 66, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 .tabular {
   display: table;
 }
-/* line 68, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .tabular > div {
   display: table-row;
 }
-/* line 70, ../sass/screen.scss */
+/* line 71, ../sass/screen.scss */
 .tabular > div > * {
   display: table-cell;
 }
 
-/* line 76, ../sass/screen.scss */
+/* line 77, ../sass/screen.scss */
 form.login {
   padding: 50px;
   margin: 100px auto 100px auto;

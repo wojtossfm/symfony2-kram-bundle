@@ -16,9 +16,9 @@ class DebtType extends AbstractType
     {
         $builder
             ->add('amount')
-//             ->add('dateCreated', null, array("widget"=>"single_text"))
             ->add('user')
             ->add('week')
+            ->add('comment')
         ;
     }
     

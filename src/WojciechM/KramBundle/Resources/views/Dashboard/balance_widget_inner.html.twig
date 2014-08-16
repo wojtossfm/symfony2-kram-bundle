@@ -1,0 +1,13 @@
+
+{% block content %}
+<div class="balance_sheet">
+{% for user in users %}
+	<div class="balance_user">
+		{{ user.lastName }} {{ user.firstName }}
+	</div>
+	<div class="balance_value">
+		{{ user.balance }}
+	</div>
+{% endfor %}
+</div>
+{% endblock %}

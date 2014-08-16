@@ -25,12 +25,12 @@ class ExtendedController extends Controller {
 	protected static $CREATE_URL = '';
 	protected static $UPDATE_URL = '';
 
-	protected function getDeleteIntetion() {
-		return get_called_class() . "_delete_token";
+	protected function getDeleteIntention() {
+		return get_class($this) . "_delete_token";
 	}
 
 	protected function extendContext($context) {
-		$context["intention_delete"] = $this->getDeleteIntetion();
+		$context["intention_delete"] = $this->getDeleteIntention();
 		$context["presentation"] = new static::$ENTITY_PRESENTATION();
 		return $context;
 	}
@@ -40,6 +40,10 @@ class ExtendedController extends Controller {
 	}
 
 	protected function validUpdatePre($entity, $em) {
+
+	}
+	
+	protected function validDeletePre($entity, $em) {
 
 	}
 
@@ -59,9 +63,10 @@ class ExtendedController extends Controller {
 		return $template;
 	}
 	
-	public static function getAjaxRedirect(Request $request, $url) {
+	public static function getAjaxRedirect(Request $request, $url, $action=NULL) {
+		$action = $action ? $action : static::$ACTION_REDIRECT;
 		$response = new Response("", 200);
-		$response->headers->set("X-Action", static::$ACTION_REDIRECT);
+		$response->headers->set("X-Action", $action);
 		$response->headers->set("X-Target", $url);
 		return $response;
 	}
@@ -71,7 +76,7 @@ class ExtendedController extends Controller {
 		$response = null;
 		$context = ($context === null) ? array() : $context;
 		switch ($action) {
-		case static::$ACTION_REDIRECT: {
+			case static::$ACTION_REDIRECT: {
 				$url = $this->generateUrl($target, $context);
 				if ($request->isXmlHttpRequest()) {
 					$response = static::getAjaxRedirect($request, $url);
@@ -80,12 +85,21 @@ class ExtendedController extends Controller {
 				}
 				break;
 			}
-		default: {
+			default: {
 				$template = $this->selectTemplate($request, $target);
 				$response = $this->render($template, $this->extendContext($context));
 			}
 		}
 		return $response;
+	}
+	
+	protected function getCurrentUser() {
+		return $this->get('security.context')->getToken()->getUser();
+	}
+	
+	protected function getCurrentWeek() {
+		return $this->getDoctrine()->getEntityManager()
+			->getRepository('WojciechMKramBundle:Week')->findCurrent();
 	}
 
 	/**
@@ -207,19 +221,20 @@ class ExtendedController extends Controller {
 	public function deleteAction(Request $request, $id) {
 		$csrf = $this->get('form.csrf_provider');
 		$token = $request->get("_csrf_token");
-		if ($csrf->isCsrfTokenValid($this->getDeleteIntetion(), $token)) {
+		if ($csrf->isCsrfTokenValid($this->getDeleteIntention(), $token)) {
 			$em = $this->getDoctrine()->getManager();
 			$entity = $em->getRepository(static::$ENTITY)->find($id);
 
 			if (!$entity) {
-				throw $this
-						->createNotFoundException(
-								'Unable to find ' . static::$ENTITY
-										. ' entity.');
+				throw $this->createNotFoundException(
+					'Unable to find ' . static::$ENTITY. ' entity.'
+				);
 			}
-
+			$this->validDeletePre($entity, $em);
 			$em->remove($entity);
 			$em->flush();
+		} else {
+			throw new \Exception("Invalid CSRF token");
 		}
 		return $this
 				->getResponse($request, static::$LIST_URL, null,

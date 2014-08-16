@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * ShoppingList
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="WojciechM\KramBundle\Repository\ShoppingListRepository")
  */
 class ShoppingList
 {
@@ -94,10 +94,10 @@ class ShoppingList
     /**
      * Add entries
      *
-     * @param \WojciechM\KramBundle\Entity\ShoppingListEntries $entries
+     * @param \WojciechM\KramBundle\Entity\ShoppingListEntry $entries
      * @return ShoppingList
      */
-    public function addEntry(\WojciechM\KramBundle\Entity\ShoppingListEntries $entries)
+    public function addEntry(\WojciechM\KramBundle\Entity\ShoppingListEntry $entries)
     {
         $this->entries[] = $entries;
 
@@ -107,9 +107,9 @@ class ShoppingList
     /**
      * Remove entries
      *
-     * @param \WojciechM\KramBundle\Entity\ShoppingListEntries $entries
+     * @param \WojciechM\KramBundle\Entity\ShoppingListEntry $entries
      */
-    public function removeEntry(\WojciechM\KramBundle\Entity\ShoppingListEntries $entries)
+    public function removeEntry(\WojciechM\KramBundle\Entity\ShoppingListEntry $entries)
     {
         $this->entries->removeElement($entries);
     }
@@ -120,5 +120,10 @@ class ShoppingList
     public function __construct()
     {
         $this->entries = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->dateCreated = new \DateTime();
+    }
+    
+    public function __toString() {
+        return $this->dateCreated->format('Y-m-d');
     }
 }

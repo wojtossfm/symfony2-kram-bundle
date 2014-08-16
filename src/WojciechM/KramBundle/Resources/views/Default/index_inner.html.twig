@@ -1,0 +1,56 @@
+{% block inner_content %}
+<h1>{{ presentation.labels.plural|trans }}</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+            	{% for field in presentation.fields %}
+            		<th>{{ field.label|trans }}</th>
+            	{% endfor %}
+            	{% if presentation.rowActions %}
+            		<th>
+            			{% trans %}Actions{% endtrans %}
+            		</th>
+            	{% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+            	{% for field in presentation.fields %}
+            		<td>
+            		{% include "WojciechMKramBundle:Default:present_field.html.twig" %}
+            		</td>
+            	{% endfor %}
+                {% if presentation.rowActions %}
+                <td>
+                	<ul class="actions">
+                		{% block row_actions %}
+		            		{% if presentation.rowActions.show is defined %}
+		            			<li>{{ widgets.button_ready_show(presentation.rowActions.show, entity.id) }}</li>
+		            		{% endif %}
+		            		{% if presentation.rowActions.edit is defined %}
+		            			<li>{{ widgets.button_ready_edit(presentation.rowActions.edit, entity.id) }}</li>
+		            		{% endif %}
+		            		{% if presentation.rowActions.delete is defined %}
+		            			<li>{{ widgets.button_ready_delete(presentation.rowActions.delete, entity.id, intention_delete) }}</li>
+		            		{% endif %}
+		            	{% endblock %}
+                	</ul>
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+<ul class="actions">
+	{% block general_actions %}
+		{% if presentation.generalActions.new is defined %}
+			<li>
+				{{ widgets.button_ready_new(presentation.generalActions.new)}}
+			</li>
+		{% endif %}
+	{% endblock %}
+</ul>
+{% endblock %}

@@ -54,4 +54,15 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 		return $this->getEntityName() === $class
 		|| is_subclass_of($class, $this->getEntityName());
 	}
+	
+	public function findForBalance(array $filter) {
+		$filter = isset($filter) ? $filter : array();
+		$filter["active"] = isset($filter["active"]) ? $filter["active"] : True;
+		$query = "SELECT u, p, d FROM WojciechMKramBundle:User u ".
+				"LEFT JOIN u.payments p ".
+				"LEFT JOIN u.debts d ".
+				"WHERE u.active = :active";
+		return $this->getEntityManager()->createQuery($query)->setParameters($filter)
+			->getResult(); 
+	}
 }

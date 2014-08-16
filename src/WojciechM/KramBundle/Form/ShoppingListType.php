@@ -11,7 +11,7 @@ class ShoppingListType extends AbstractType {
 	 * @param array $options
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
-		$builder->add('dateCreated');
+		//$builder->add('dateCreated');
 	}
 
 	/**

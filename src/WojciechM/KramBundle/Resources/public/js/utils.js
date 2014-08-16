@@ -50,16 +50,22 @@ function loadDialog(sUrl, sTarget) {
 	
 	oDialog.dialog("close");
 	
+	var fnHandler = GetAjaxResponseHandler(function(oTarget) {
+		oTarget.dialog("open");
+	});
+	
 	$.ajax({
 		url: sUrl,
 		method: "GET",
 	}).done(function (data, textStatus, jqXHR) {
-		AjaxDialogHandler(oDialog, data, textStatus, jqXHR);
+		fnHandler(oDialog, data, textStatus, jqXHR);
 	}).fail(function (jqXHR, textStatus, errorThrown) {
-		AjaxDialogHandler(oDialog, textStatus + " " + errorThrown, textStatus, jqXHR);
+		fnHandler(oDialog, textStatus + " " + errorThrown, textStatus, jqXHR);
 	});
 	return false;
 }
+
+var oDialogSource = undefined;
 
 function InitiateButtons(oContext) {
 	oContext = setOrDefault(oContext, undefined);
@@ -70,10 +76,15 @@ function InitiateButtons(oContext) {
 
 	$(".dialog", oContext).click(function () {
 		loadDialog($(this).prop("href"));
+		oDialogSource = $(this);
 		return false;
 	});
 	
+	
 	$(".ui-dialog form").submit(function () {
+		var fnHandler = GetAjaxResponseHandler(function(oTarget) {
+			oTarget.dialog("open");
+		});
 		var oDialog = $(this).closest(".ui-dialog-content").dialog();
 		var sUrl = $(this).prop("action");
 		var sMethod = $(this).prop("method");
@@ -82,22 +93,60 @@ function InitiateButtons(oContext) {
 			type: sMethod,
 			data: $(this).serialize()
 		}).done(function (data, textStatus, jqXHR) {
-			AjaxDialogHandler(oDialog, data, textStatus, jqXHR);
+			fnHandler(oDialog, data, textStatus, jqXHR);
 		}).fail(function (jqXHR, textStatus, errorThrown) {
-			AjaxDialogHandler(oDialog, textStatus + " " + errorThrown, textStatus, jqXHR);
+			fnHandler(oDialog, textStatus + " " + errorThrown, textStatus, jqXHR);
 		});
 		return false;
 	});
+	
+	$(".widget form").submit(function () {
+		var fnHandler = GetAjaxResponseHandler();
+		var oWidget = $(this).closest(".widget");
+		var sUrl = $(this).prop("action");
+		var sMethod = $(this).prop("method");
+		$.ajax({
+			url: sUrl,
+			type: sMethod,
+			data: $(this).serialize()
+		}).done(function (data, textStatus, jqXHR) {
+			fnHandler(oWidget, data, textStatus, jqXHR);
+		}).fail(function (jqXHR, textStatus, errorThrown) {
+			fnHandler(oWidget, textStatus + " " + errorThrown, textStatus, jqXHR);
+		});
+		return false;
+	})
 }
 
-function AjaxDialogHandler (oDialog, data, textStatus, jqXHR) {
-	var bRedirect = jqXHR.getResponseHeader("X-Action") == "redirect";
-	if (bRedirect) {
-		var sRedirect = jqXHR.getResponseHeader("X-Target");
-		window.location = sRedirect;
-		oDialog.dialog("close");
-	} else {
-		oDialog.html(data);
-		oDialog.dialog("open");
-	}
-};
+function GetAjaxResponseHandler(fnNonRedirectExtra) {
+	fnNonRedirectExtra = setOrDefault(fnNonRedirectExtra, function(){});
+	var handler = function (oTarget, data, textStatus, jqXHR) {
+		var sAction = jqXHR.getResponseHeader("X-Action");
+		switch(sAction) {
+			case "redirect": {
+				var sRedirect = jqXHR.getResponseHeader("X-Target");
+				window.location = sRedirect;
+				break;
+			}
+			case "widget": {
+				var fnHandler = GetAjaxResponseHandler();
+				var oWidget = $(oDialogSource).closest(".widget");
+				$.ajax({
+					url: jqXHR.getResponseHeader("X-Target"),
+					type: "GET",
+				}).done(function (data, textStatus, jqXHR) {
+					fnHandler(oWidget, data, textStatus, jqXHR);
+				}).fail(function (jqXHR, textStatus, errorThrown) {
+					fnHandler(oWidget, textStatus + " " + errorThrown, textStatus, jqXHR);
+				});
+				oTarget.dialog("close");
+				break;
+			}
+			default: {
+				oTarget.html(data);
+				fnNonRedirectExtra(oTarget);
+			}
+		}
+	};
+	return handler;
+}

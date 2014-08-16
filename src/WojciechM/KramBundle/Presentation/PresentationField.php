@@ -3,11 +3,13 @@
 namespace WojciechM\KramBundle\Presentation;
 
 class PresentationField {
-	public static $TYPE_LIST = "list";
-	public static $TYPE_SINGLE = "single";
-	public static $TYPE_PROP = "properties";
-	public static $TYPE_VAL = "values";
-	public static $FORMAT_DATE = "date";
+	const TYPE_LIST = "list";
+	const TYPE_SINGLE = "single";
+	const TYPE_PROP = "properties";
+	const TYPE_VAL = "values";
+	const FORMAT_DATE = "date";
+	const FORMAT_COUNT = "count";
+	const FORMAT_SUMMARY = "summary";
 	private $type;
 	private $property;
 	private $label;

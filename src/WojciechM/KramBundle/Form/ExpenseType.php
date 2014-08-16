@@ -12,8 +12,10 @@ class ExpenseType extends AbstractType {
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder
-		//             ->add('dateCreated')
-				->add('amount')->add('week');
+			->add('amount')
+			->add('week')
+            ->add('comment')
+		;
 	}
 
 	/**

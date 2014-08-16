@@ -15,6 +15,7 @@
 }
 
 @import "partials/menu_and_lists";
+@import "partials/widgets";
 
 header, footer {
   @include column($blueprint-grid-columns);

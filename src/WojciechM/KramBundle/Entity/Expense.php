@@ -43,6 +43,12 @@ class Expense
      **/
     private $week;
 
+    /**
+     * @var string
+     * @ORM\Column(name="comment", type="string", nullable=True)
+     * @Assert\Length(max=255)
+     */
+    private $comment;
 
     /**
      * Get id
@@ -122,14 +128,37 @@ class Expense
     {
         return $this->week;
     }
-    
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return Expense
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+       
 
     public function __construct() {
     	$this->dateCreated = new \DateTime();
     }
     
     public function __toString() {
-    	return $this->getAmount();
+    	return "".$this->getAmount();
     }
     
 }

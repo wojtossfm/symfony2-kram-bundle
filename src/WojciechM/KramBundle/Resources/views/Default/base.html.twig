@@ -34,6 +34,7 @@
 			{% block nav %}
 				{% if app.user %}
 					<ul class="nav">
+						<li>{{ widgets.button_nav("Home", "", "dashboard", {})}}</li>
 						<li>{{ widgets.button_nav("Weeks", "", "week", {})}}</li>
 						<li>{{ widgets.button_nav("Payments", "", "payment", {})}}</li>
 						<li>{{ widgets.button_nav("Debts", "", "debt", {})}}</li>

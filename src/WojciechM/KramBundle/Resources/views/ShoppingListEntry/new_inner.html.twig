@@ -1,0 +1,29 @@
+{% extends 'WojciechMKramBundle:Default:index_inner.html.twig' %}
+
+{% block inner_content %}
+	{{ parent() }}
+	{% include 'WojciechMKramBundle:Default:new_inner.html.twig' %}
+{% endblock %}
+
+
+{% block row_actions %}
+	{% if presentation.rowActions.vote is defined %}
+		{% if entity.canVote(app.user) %}
+			<li>{{ widgets.button_form("vote", "", presentation.rowActions.vote, {"id": entity.id}, intention_vote) }}</li>
+		{% endif %}
+	{% endif %}
+	{% if presentation.rowActions.delete is defined %}
+		{% if app.user.admin or entity.user == app.user %}
+			<li>{{ widgets.button_ready_delete(presentation.rowActions.delete, entity.id, intention_delete) }}</li>
+		{% endif %}
+	{% endif %}
+{% endblock %}
+
+{% block general_actions %}
+	{% if presentation.generalActions.close is defined %}
+		<li>
+			{{ widgets.button("shopping completed", "dialog", presentation.generalActions.close, {})}}
+		</li>
+	{% endif %}
+	{{ parent() }}
+{% endblock %}

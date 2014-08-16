@@ -11,18 +11,23 @@
 	{{ widgets.button(name, "#{classes} confirm", url, urlargs) }}
 {% endmacro %}
 
-{% macro button_delete(name, classes, url, urlargs, intention) %}
+{% macro button_form(name, classes, url, urlargs, intention) %}
 	{% import _self as widgets %}
 	{% spaceless %}
 		<form class="inline" action="{{ path(url, urlargs) }}" method="POST">
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token(intention) }}"/>
-			{% if name %}
-				{{ widgets.button_confirm(name, classes) }}
-			{% else %}
-				{{ widgets.button_confirm("delete", classes) }}
-			{% endif %}
+			{{ widgets.button(name, classes) }}
 		</form>
 	{% endspaceless %}
+{% endmacro %}
+
+{% macro button_delete(name, classes, url, urlargs, intention) %}
+	{% import _self as widgets %}
+	{% if name %}
+		{{ widgets.button_form(name, "confirm #{classes}", url, urlargs, intention) }}
+	{% else %}
+		{{ widgets.button_form("delete", "confirm #{classes}", url, urlargs, intention) }}
+	{% endif %}
 {% endmacro %}
 
 {% macro button_ready_show(url, id) %}

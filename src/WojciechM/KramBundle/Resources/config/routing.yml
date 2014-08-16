@@ -1,7 +1,11 @@
-wojciech_m_kram_homepage:
+dashboard:
     path:     /
-    defaults: { _controller: WojciechMKramBundle:Default:index }
+    defaults: { _controller: WojciechMKramBundle:Default:dashboard }
 
+balance_widget:
+    path:     /balance
+    defaults: { _controller: WojciechMKramBundle:Default:balanceWidget }
+    
 login:
     path:     /login
     defaults: { _controller: WojciechMKramBundle:Security:login }
@@ -35,3 +39,7 @@ WojciechMKramBundle_debt:
 WojciechMKramBundle_shoppinglist:
         resource: "@WojciechMKramBundle/Resources/config/routing/shoppinglist.yml"
         prefix:   /shopping
+
+WojciechMKramBundle_shoppingentry:
+        resource: "@WojciechMKramBundle/Resources/config/routing/shoppingentry.yml"
+        prefix:   /shopping/entry

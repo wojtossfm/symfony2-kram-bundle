@@ -20,4 +20,11 @@ class ShoppingListController extends ExtendedController {
 	protected static $LIST_URL = 'shoppinglist';
 	protected static $CREATE_URL = 'shoppinglist_create';
 	protected static $UPDATE_URL = 'shoppinglist_update';
+	
+	protected function validDeletePre($entity, $em) {
+		$entries = $entity->getEntries();
+		foreach($entries as $entry) {
+			$em->remove($entry);
+		}
+	}
 }

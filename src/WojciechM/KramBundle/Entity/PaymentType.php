@@ -11,8 +11,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity
  */
-class PaymentType
-{
+class PaymentType {
+    const TYPE_REGULAR = "regular";
+    const TYPE_SICK_LEAVE = "sick-leave";
+    const TYPE_LEAVE = "leave";
+    const TYPE_EXPENSE = "expense";
     /**
      * @var integer
      *

@@ -22,7 +22,7 @@ class WeekRepository extends EntityRepository {
 		$em = $this->getEntityManager();
 		$sample = new Week();
 		$lastArr = $this->findLastNWeeksAndPayments(1);
-		$users = $em->getRepository('WojciechMKramBundle:User')->findBy(array("isActive"=>True));
+		$users = $em->getRepository('WojciechMKramBundle:User')->findBy(array("active"=>True));
 		if (!empty($lastArr)) {
 			$last = $lastArr[0];
 			$lastStart = $last->getStart();

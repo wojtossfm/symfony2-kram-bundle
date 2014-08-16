@@ -26,13 +26,13 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 
 	/**
 	 * @ORM\Column(type="string", length=60, unique=true)
-     * @Assert\Length(min=2, max=60)
+	 * @Assert\Length(min=2, max=60)
 	 */
 	private $username;
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=8)
+	 * @Assert\Length(min=8)
 	 */
 	private $password;
 
@@ -68,14 +68,14 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	 *
 	 * @ORM\Column(name="is_active", type="boolean")
 	 */
-	private $isActive;
+	private $active;
 
 	/**
 	 * @var boolean
 	 *
 	 * @ORM\Column(name="is_admin", type="boolean")
 	 */
-	private $isAdmin;
+	private $admin;
 
 	/**
 	 * @var \DateTime
@@ -98,6 +98,18 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	 * @ORM\OneToMany(targetEntity="Payment", mappedBy="user")
 	 **/
 	private $payments;
+
+	/**
+	 * @ORM\OneToMany(targetEntity="Debt", mappedBy="user")
+	 **/
+	private $debts;
+
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="balance", type="decimal")
+	 */
+	private $balance;
 
 	/**
 	 * Get id
@@ -151,45 +163,45 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	}
 
 	/**
-	 * Set isActive
+	 * Set active
 	 *
-	 * @param boolean $isActive
+	 * @param boolean $active
 	 * @return User
 	 */
-	public function setIsActive($isActive) {
-		$this->isActive = $isActive;
+	public function setActive($active) {
+		$this->active = $active;
 
 		return $this;
 	}
 
 	/**
-	 * Get isActive
+	 * Get active
 	 *
 	 * @return boolean 
 	 */
-	public function getIsActive() {
-		return $this->isActive;
+	public function getActive() {
+		return $this->active;
 	}
 
 	/**
-	 * Set isAdmin
+	 * Set admin
 	 *
-	 * @param boolean $isAdmin
+	 * @param boolean $admin
 	 * @return User
 	 */
-	public function setIsAdmin($isAdmin) {
-		$this->isAdmin = $isAdmin;
+	public function setAdmin($admin) {
+		$this->admin = $admin;
 
 		return $this;
 	}
 
 	/**
-	 * Get isAdmin
+	 * Get admin
 	 *
 	 * @return boolean 
 	 */
-	public function getIsAdmin() {
-		return $this->isAdmin;
+	public function getAdmin() {
+		return $this->admin;
 	}
 
 	/**
@@ -307,38 +319,89 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	public function getPayments() {
 		return $this->payments;
 	}
-
-	public function __toString() {
-		return $this->lastName . " " . $this->firstName;
+	
+	/**
+	 * Add debts
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Debt $debts
+	 * @return User
+	 */
+	public function addDebt(\WojciechM\KramBundle\Entity\Debt $debts)
+	{
+		$this->debts[] = $debts;
+	
+		return $this;
 	}
-
-	public function __construct() {
-		$this->salt = md5(uniqid());
-		$this->dateCreated = new \DateTime();
-		$this->collectionWeeks = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->shoppingWeeks = new \Doctrine\Common\Collections\ArrayCollection();
-		$this->payments = new \Doctrine\Common\Collections\ArrayCollection();
+	
+	/**
+	 * Remove debts
+	 *
+	 * @param \WojciechM\KramBundle\Entity\Debt $debts
+	 */
+	public function removeDebt(\WojciechM\KramBundle\Entity\Debt $debts)
+	{
+		$this->debts->removeElement($debts);
+	}
+	
+	/**
+	 * Get debts
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getDebts()
+	{
+		return $this->debts;
+	}
+	
+	/**
+	 * Get balance
+	 *
+	 * @return float
+	 */
+	public function getBalance() {
+		//TODO: Rewrite this to either use an aggregate field or rely on SQL
+		$this->balance = 0;
+		foreach($this->getDebts() as $change) {
+			$this->balance -= $change->getAmount();
+		}
+		foreach($this->getPayments() as $change) {
+			$this->balance += $change->getAmount();
+		}
+		return $this->balance;
+	}
+	
+	/**
+	 * Set balance
+	 *
+	 * @param string $balance
+	 * @return User
+	 */
+	public function setBalance($balance)
+	{
+		$this->balance = $balance;
+	
+		return $this;
 	}
 
 	public function isAccountNonExpired() {
-		return $this->getIsActive();
+		return $this->getActive();
 	}
 	public function isAccountNonLocked() {
-		return $this->getIsActive();
+		return $this->getActive();
 
 	}
 	public function isCredentialsNonExpired() {
-		return $this->getIsActive();
+		return $this->getActive();
 
 	}
 	public function isEnabled() {
-		return $this->getIsActive();
+		return $this->getActive();
 	}
 
 	public function getRoles() {
 		$roles = array();
 		$roles[] = "ROLE_USER";
-		if ($this->getIsAdmin()) {
+		if ($this->getAdmin()) {
 			$roles[] = "ROLE_ADMIN";
 		}
 		return $roles;
@@ -368,7 +431,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	public function serialize() {
 		return serialize(
 				array($this->id, $this->username, $this->password, $this->salt,
-						$this->isActive, $this->isAdmin,));
+						$this->active, $this->admin,));
 	}
 
 	/**
@@ -376,7 +439,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	 */
 	public function unserialize($serialized) {
 		list($this->id, $this->username, $this->password, $this->salt, $this
-				->isActive, $this->isAdmin, ) = unserialize($serialized);
+				->active, $this->admin, ) = unserialize($serialized);
 	}
 
 	/**
@@ -435,9 +498,23 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	public function getEmail() {
 		return $this->email;
 	}
-	
+
 	public function isEqualTo(UserInterface $user) {
 		return $this->id === $user->getId();
 	}
+
+	public function __toString() {
+		return $this->lastName . " " . $this->firstName;
+	}
+
+	public function __construct() {
+		$this->salt = md5(uniqid());
+		$this->dateCreated = new \DateTime();
+		$this->collectionWeeks = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->shoppingWeeks = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->payments = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->debts = new \Doctrine\Common\Collections\ArrayCollection();
+	}
+
 
 }
