@@ -14,7 +14,7 @@ class ExpenseType extends AbstractType {
 		$builder
 			->add('amount')
 			->add('week')
-            ->add('comment')
+            ->add('comment', NULL, array("required"=>False))
 		;
 	}
 

@@ -19,10 +19,9 @@ class ExpenseController extends ExtendedController {
 	protected static $LIST_URL = 'expense';
 	protected static $CREATE_URL = 'expense_create';
 	protected static $UPDATE_URL = 'expense_update';
-
-	protected function validCreatePre($entity, $em) {
+	
+	protected function newPre($entity, $em) {
 		$week = $em->getRepository('WojciechMKramBundle:Week')->findCurrent();
-		$week->addExpense($entity);
 		$entity->setWeek($week);
 	}
 }

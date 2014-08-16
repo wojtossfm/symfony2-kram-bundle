@@ -18,7 +18,7 @@ class DebtType extends AbstractType
             ->add('amount')
             ->add('user')
             ->add('week')
-            ->add('comment')
+            ->add('comment', NULL, array("required"=>False))
         ;
     }
     

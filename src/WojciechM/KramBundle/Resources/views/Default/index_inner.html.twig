@@ -1,5 +1,9 @@
 {% block inner_content %}
-<h1>{{ presentation.labels.plural|trans }}</h1>
+<h1>
+	{% if presentation.labels.plural is defined %}
+		{{ presentation.labels.plural|trans }}
+	{% endif %}
+</h1>
 
     <table class="records_list">
         <thead>

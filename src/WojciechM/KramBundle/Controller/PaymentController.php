@@ -24,16 +24,18 @@ class PaymentController extends ExtendedController {
 	protected static $UPDATE_URL = 'payment_update';
 	
 	protected function validCreatePre($entity, $em) {
-		$week = $em->getRepository('WojciechMKramBundle:Week')->findCurrent();
-		$week->addPayment($entity);
-		$entity->setWeek($week);
 		$type = $entity->getType();
 		if (strcmp($type->getName(), PT::TYPE_EXPENSE) == 0) {
 			$exp = new Expense();
-			$exp->setWeek($week);
+			$exp->setWeek($entity->getWeek());
 			$exp->setAmount($entity->getAmount());
 			$exp->setComment($entity->getUser());
 			$em->persist($exp);
 		}
+	}
+	
+	protected function newPre($entity, $em) {
+		$week = $em->getRepository('WojciechMKramBundle:Week')->findCurrent();
+		$entity->setWeek($week);
 	}
 }

@@ -21,9 +21,8 @@ class DebtController extends ExtendedController {
 	protected static $CREATE_URL = 'debt_create';
 	protected static $UPDATE_URL = 'debt_update';
 
-	protected function validCreatePre($entity, $em) {
+	protected function newPre($entity, $em) {
 		$week = $em->getRepository('WojciechMKramBundle:Week')->findCurrent();
-		$week->addDebt($entity);
 		$entity->setWeek($week);
 	}
 

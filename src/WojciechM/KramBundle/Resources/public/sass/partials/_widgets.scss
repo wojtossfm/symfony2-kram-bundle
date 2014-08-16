@@ -10,3 +10,9 @@
 	@include border-radius;
 	border:1px solid black;
 }
+
+.widget.balance {
+	@include column(6);
+	@include border-radius;
+	border:1px solid black;
+}

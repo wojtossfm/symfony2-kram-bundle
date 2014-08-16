@@ -5,6 +5,7 @@ namespace WojciechM\KramBundle\Controller;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use WojciechM\KramBundle\Controller\ExtendedController;
+use WojciechM\KramBundle\Presentation\BalancePresentation;
 
 class DefaultController extends ExtendedController
 {
@@ -15,12 +16,13 @@ class DefaultController extends ExtendedController
     public function balanceWidgetAction() {
     	$em = $this->getDoctrine()->getManager();
     	$users = $em->getRepository("WojciechMKramBundle:User")->findForBalance(array("active"=>True));
-    	return $this->render("WojciechMKramBundle:Dashboard:balance_widget_inner.html.twig", array("users"=>$users));
-    }
-    
-    public function shoppingWidgetAction () {
-    	$em = $this->getDoctrine()->getManager();
-    	$users = $em->getRepository("WojciechMKramBundle:ShoppingList")->find(array("active"=>True));
-    	return $this->render("WojciechMKramBundle:Dashboard:shopping_widget_inner.html.twig", array("users"=>$users));
+    	$payments = $em->getRepository("WojciechMKramBundle:Payment")->findTotal();
+		$expenses = $em->getRepository("WojciechMKramBundle:Expense")->findTotal();
+		return $this->render("WojciechMKramBundle:Dashboard:balance_widget_inner.html.twig",
+			array(
+				  "entities"=>$users,
+				  "presentation"=>new BalancePresentation(),
+				  "total"=>0 + $payments - $expenses
+				));
     }
 }

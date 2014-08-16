@@ -18,8 +18,8 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface {
 		$user = new User();
 		$encoder = $factory->getEncoder($user);
 		$user->setUsername('admin');
-		$user->setFirstName("A");
-		$user->setLastName("B");
+		$user->setFirstName("Admin");
+		$user->setLastName("Basic");
 		$user->setEmail('admin@gmail.com');
 		$user->setIsActive(true);
 		$user->setIsAdmin(true);

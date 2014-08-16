@@ -1,13 +1,8 @@
+{% import 'WojciechMKramBundle:Default:widgets.html.twig' as widgets %}
+{% extends 'WojciechMKramBundle:Default:index_inner.html.twig' %}
 
-{% block content %}
-<div class="balance_sheet">
-{% for user in users %}
-	<div class="balance_user">
-		{{ user.lastName }} {{ user.firstName }}
-	</div>
-	<div class="balance_value">
-		{{ user.balance }}
-	</div>
-{% endfor %}
-</div>
+{% block inner_content %}
+	{{ parent() }}
+	
+	<h4>{% trans %}Balance{% endtrans %}: {{ total }}</h4>
 {% endblock %}

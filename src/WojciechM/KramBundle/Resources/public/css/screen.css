@@ -315,6 +315,21 @@ a.negative:active, button.negative:active {
   border: 1px solid black;
 }
 
+/* line 14, ../sass/partials/_widgets.scss */
+.widget.balance {
+  display: inline;
+  float: left;
+  overflow: hidden;
+  width: 24.212%;
+  margin-right: 1.042%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
 /* line 20, ../sass/screen.scss */
 header, footer {
   display: inline;

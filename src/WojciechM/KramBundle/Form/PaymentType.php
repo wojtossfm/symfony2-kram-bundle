@@ -18,7 +18,8 @@ class PaymentType extends AbstractType
             ->add('user')
             ->add('type')
             ->add('amount')
-            ->add('comment')
+            ->add('week')
+            ->add('comment', NULL, array("required"=>False))
         ;
     }
     

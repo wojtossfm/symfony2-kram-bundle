@@ -46,6 +46,10 @@ class ExtendedController extends Controller {
 	protected function validDeletePre($entity, $em) {
 
 	}
+	
+	protected function newPre($entity, $em) {
+		
+	}
 
 	protected function getListEntities($em) {
 		return $em->getRepository(static::$ENTITY)->findAll();
@@ -144,6 +148,7 @@ class ExtendedController extends Controller {
 	 */
 	public function newAction(Request $request) {
 		$entity = new static::$ENTITY_CLASS();
+		$this->newPre($entity, $this->getDoctrine()->getEntityManager());
 		$form = $this->createCreateForm($entity);
 		return $this
 				->getResponse($request, "new",
