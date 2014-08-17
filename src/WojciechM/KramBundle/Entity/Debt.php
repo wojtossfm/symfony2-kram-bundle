@@ -24,6 +24,7 @@ class Debt
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="debts")
+     * @Assert\NotNull()
      **/
     private $user;
 
@@ -51,6 +52,7 @@ class Debt
     
     /**
      * @ORM\ManyToOne(targetEntity="Week", inversedBy="debts")
+     * @Assert\NotNull()
      **/
     private $week;
 

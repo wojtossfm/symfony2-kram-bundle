@@ -28,3 +28,22 @@ user_delete:
     path:     /{id}/delete
     defaults: { _controller: "WojciechMKramBundle:User:delete" }
     requirements: { _method: post|delete }
+
+user_change_own_password:
+    path:     /own/password/change
+    defaults: { _controller: "WojciechMKramBundle:User:changeOwnPassword" }
+
+user_save_own_password:
+    path:     /own/password/save
+    defaults: { _controller: "WojciechMKramBundle:User:saveOwnPassword" }
+    requirements: { _method: post }
+
+user_change_other_password:
+    path:     /{id}/password/change
+    defaults: { _controller: "WojciechMKramBundle:User:changeOtherPassword" }
+
+user_save_other_password:
+    path:     /{id}/password/save
+    defaults: { _controller: "WojciechMKramBundle:User:saveOtherPassword" }
+    requirements: { _method: post }
+    

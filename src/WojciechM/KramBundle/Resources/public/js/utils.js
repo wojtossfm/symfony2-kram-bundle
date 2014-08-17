@@ -83,7 +83,9 @@ function InitiateButtons(oContext) {
 	
 	$(".ui-dialog form").submit(function () {
 		var fnHandler = GetAjaxResponseHandler(function(oTarget) {
-			oTarget.dialog("open");
+			if (oTarget.html()) {
+				oTarget.dialog("open");
+			}
 		});
 		var oDialog = $(this).closest(".ui-dialog-content").dialog();
 		var sUrl = $(this).prop("action");

@@ -34,6 +34,17 @@ class ExtendedController extends Controller {
 		$context["presentation"] = new static::$ENTITY_PRESENTATION();
 		return $context;
 	}
+	
+	protected function getEntityById($id, $type=NULL) {
+		$em = $this->getDoctrine()->getManager();
+		$type = $type ? $type : static::$ENTITY;
+		$entity = $em->getRepository($type)->find($id);
+		if (!$entity) {
+			throw $this->createNotFoundException(
+				'Unable to find ' . $type . ' entity.');
+		}
+		return $entity;
+	}
 
 	protected function validCreatePre($entity, $em) {
 
@@ -162,12 +173,7 @@ class ExtendedController extends Controller {
 	 */
 	public function showAction(Request $request, $id) {
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository(static::$ENTITY)->find($id);
-		if (!$entity) {
-			throw $this
-					->createNotFoundException(
-							'Unable to find ' . static::$ENTITY . ' entity.');
-		}
+		$entity = $this->getEntityById($id);
 		return $this
 				->getResponse($request, "show",
 						array('entity' => $entity,));
@@ -179,15 +185,7 @@ class ExtendedController extends Controller {
 	 */
 	public function editAction(Request $request, $id) {
 		$em = $this->getDoctrine()->getManager();
-
-		$entity = $em->getRepository(static::$ENTITY)->find($id);
-
-		if (!$entity) {
-			throw $this
-					->createNotFoundException(
-							'Unable to find ' . static::$ENTITY . ' entity.');
-		}
-
+		$entity = $this->getEntityById($id);
 		$editForm = $this->createEditForm($entity);
 		return $this
 				->getResponse($request, "edit",
@@ -197,13 +195,7 @@ class ExtendedController extends Controller {
 
 	public function updateAction(Request $request, $id) {
 		$em = $this->getDoctrine()->getManager();
-
-		$entity = $em->getRepository(static::$ENTITY)->find($id);
-
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find entity.');
-		}
-
+		$entity = $this->getEntityById($id);
 		$editForm = $this->createEditForm($entity);
 		$editForm->handleRequest($request);
 
@@ -228,13 +220,7 @@ class ExtendedController extends Controller {
 		$token = $request->get("_csrf_token");
 		if ($csrf->isCsrfTokenValid($this->getDeleteIntention(), $token)) {
 			$em = $this->getDoctrine()->getManager();
-			$entity = $em->getRepository(static::$ENTITY)->find($id);
-
-			if (!$entity) {
-				throw $this->createNotFoundException(
-					'Unable to find ' . static::$ENTITY. ' entity.'
-				);
-			}
+			$entity = $this->getEntityById($id);
 			$this->validDeletePre($entity, $em);
 			$em->remove($entity);
 			$em->flush();

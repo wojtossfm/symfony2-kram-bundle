@@ -16,6 +16,7 @@
 
 @import "partials/menu_and_lists";
 @import "partials/widgets";
+@import "partials/tables";
 
 header, footer {
   @include column($blueprint-grid-columns);
@@ -61,16 +62,6 @@ span.summary {
 	}
 	&.paid {
 		color: green;
-	}
-}
-
-.tabular {
-	display: table;
-	> div {
-		display: table-row;
-		> * {
-			display: table-cell;
-		}
 	}
 }
 

@@ -40,6 +40,7 @@ class Expense
 
     /**
      * @ORM\ManyToOne(targetEntity="Week", inversedBy="expenses")
+     * @Assert\NotNull()
      **/
     private $week;
 

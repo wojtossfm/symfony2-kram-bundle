@@ -22,10 +22,8 @@ class VariableFilter extends \Twig_Extension {
 				break;
 			}
 		case PresentationField::FORMAT_SUMMARY: {
-				$user = $variable["user"];
-				$amount = $variable["amount"];
-				$class = ($amount < 0) ? "debt" : "paid";
-				$pres = "$user: <span class=\"summary $class\">$amount</span>";
+				$class = ($variable < 0) ? "debt" : "paid";
+				$pres = "<span class=\"summary $class\">$variable</span>";
 				break;
 			}
 		default: {

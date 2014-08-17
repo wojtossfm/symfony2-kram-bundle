@@ -69,13 +69,15 @@ a img {
   min-height: 10px;
 }
 
-/* line 8, ../sass/partials/_menu_and_lists.scss */
+/* line 12, ../sass/partials/_menu_and_lists.scss */
 ul.nav {
   margin: 0;
   padding: 0;
   border: 0;
   overflow: hidden;
   *zoom: 1;
+  float: right;
+  margin-right: 50px;
 }
 /* line 60, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 ul.nav li {
@@ -101,7 +103,7 @@ ul.nav li.last {
   padding-right: 0;
 }
 
-/* line 12, ../sass/partials/_menu_and_lists.scss */
+/* line 18, ../sass/partials/_menu_and_lists.scss */
 ul.actions {
   margin: 0;
   padding: 0;
@@ -140,7 +142,7 @@ ul.actions li {
   margin-left: 0;
 }
 
-/* line 24, ../sass/partials/_menu_and_lists.scss */
+/* line 30, ../sass/partials/_menu_and_lists.scss */
 a.button {
   display: -moz-inline-stack;
   display: inline-block;
@@ -189,7 +191,7 @@ a.button:active {
   color: white;
 }
 
-/* line 29, ../sass/partials/_menu_and_lists.scss */
+/* line 35, ../sass/partials/_menu_and_lists.scss */
 button.button {
   display: -moz-inline-stack;
   display: inline-block;
@@ -249,7 +251,7 @@ button.button:active {
   color: white;
 }
 
-/* line 34, ../sass/partials/_menu_and_lists.scss */
+/* line 40, ../sass/partials/_menu_and_lists.scss */
 a.confirm, button.confirm {
   color: #d12f19;
 }
@@ -266,7 +268,7 @@ a.confirm:active, button.confirm:active {
   color: white;
 }
 
-/* line 40, ../sass/partials/_menu_and_lists.scss */
+/* line 46, ../sass/partials/_menu_and_lists.scss */
 a.positive, button.positive {
   color: #529214;
 }
@@ -283,7 +285,7 @@ a.positive:active, button.positive:active {
   color: white;
 }
 
-/* line 46, ../sass/partials/_menu_and_lists.scss */
+/* line 52, ../sass/partials/_menu_and_lists.scss */
 a.negative, button.negative {
   color: #d12f19;
 }
@@ -298,6 +300,50 @@ a.negative:active, button.negative:active {
   background-color: #d12f19;
   border-color: #e13f29 #d12f19 #d12f19 #e13f29;
   color: white;
+}
+
+/* line 58, ../sass/partials/_menu_and_lists.scss */
+header {
+  background: -webkit-gradient(linear, to bottom right, to top left, color-stop(0%, #6299c5), color-stop(100%, #dff4ff));
+  background: -webkit-linear-gradient(to bottom right, #6299c5, #dff4ff);
+  background: -moz-linear-gradient(to bottom right, #6299c5, #dff4ff);
+  background: -o-linear-gradient(to bottom right, #6299c5, #dff4ff);
+  background: linear-gradient(to bottom right, #6299c5, #dff4ff);
+  min-height: 50px;
+}
+
+/* line 10, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+html, body {
+  height: 100%;
+}
+
+/* line 12, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#container {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -50px;
+}
+/* line 18, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#container #layout_footer {
+  height: 50px;
+}
+
+/* line 20, ../../../../../../../../../../usr/share/compass/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
+#footer {
+  clear: both;
+  position: relative;
+  height: 50px;
+}
+
+/* line 66, ../sass/partials/_menu_and_lists.scss */
+footer {
+  background: -webkit-gradient(linear, to top left, to bottom right, color-stop(0%, #6299c5), color-stop(100%, #dff4ff));
+  background: -webkit-linear-gradient(to top left, #6299c5, #dff4ff);
+  background: -moz-linear-gradient(to top left, #6299c5, #dff4ff);
+  background: -o-linear-gradient(to top left, #6299c5, #dff4ff);
+  background: linear-gradient(to top left, #6299c5, #dff4ff);
 }
 
 /* line 8, ../sass/partials/_widgets.scss */
@@ -330,7 +376,45 @@ a.negative:active, button.negative:active {
   border: 1px solid black;
 }
 
-/* line 20, ../sass/screen.scss */
+/* line 13, ../sass/partials/_tables.scss */
+table tr:nth-child(2n) {
+  background-color: #dff4ff;
+}
+/* line 4, ../sass/partials/_tables.scss */
+table tr:nth-child(2n) td:nth-child(2n) {
+  background-color: #dff4ff;
+}
+/* line 7, ../sass/partials/_tables.scss */
+table tr:nth-child(2n) td:nth-child(2n+1) {
+  background-color: #c5ebff;
+}
+/* line 17, ../sass/partials/_tables.scss */
+table tr:nth-child(2n+1) {
+  background-color: #dffffa;
+}
+/* line 4, ../sass/partials/_tables.scss */
+table tr:nth-child(2n+1) td:nth-child(2n) {
+  background-color: #dffffa;
+}
+/* line 7, ../sass/partials/_tables.scss */
+table tr:nth-child(2n+1) td:nth-child(2n+1) {
+  background-color: #c5fff6;
+}
+
+/* line 36, ../sass/partials/_tables.scss */
+.tabular {
+  display: table;
+}
+/* line 38, ../sass/partials/_tables.scss */
+.tabular > div {
+  display: table-row;
+}
+/* line 40, ../sass/partials/_tables.scss */
+.tabular > div > * {
+  display: table-cell;
+}
+
+/* line 21, ../sass/screen.scss */
 header, footer {
   display: inline;
   float: left;
@@ -339,7 +423,7 @@ header, footer {
   margin-right: 1.042%;
 }
 
-/* line 27, ../sass/screen.scss */
+/* line 28, ../sass/screen.scss */
 body {
   line-height: 1.5;
   font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -601,7 +685,7 @@ form textarea {
   height: 250px;
 }
 
-/* line 37, ../sass/screen.scss */
+/* line 38, ../sass/screen.scss */
 body.two-col #container {
   min-width: 950px;
   width: 80%;
@@ -609,7 +693,7 @@ body.two-col #container {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 40, ../sass/screen.scss */
+/* line 41, ../sass/screen.scss */
 body.two-col #header, body.two-col #footer {
   display: inline;
   float: left;
@@ -617,7 +701,7 @@ body.two-col #header, body.two-col #footer {
   width: 99.974%;
   margin-right: 1.042%;
 }
-/* line 43, ../sass/screen.scss */
+/* line 44, ../sass/screen.scss */
 body.two-col #sidebar {
   display: inline;
   float: left;
@@ -625,7 +709,7 @@ body.two-col #sidebar {
   width: 32.63%;
   margin-right: 1.042%;
 }
-/* line 48, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 body.two-col #content {
   display: inline;
   float: left;
@@ -634,33 +718,20 @@ body.two-col #content {
   margin-right: 0;
 }
 
-/* line 57, ../sass/screen.scss */
+/* line 58, ../sass/screen.scss */
 span.summary {
   font-weight: bold;
 }
-/* line 59, ../sass/screen.scss */
+/* line 60, ../sass/screen.scss */
 span.summary.debt {
   color: red;
 }
-/* line 62, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 span.summary.paid {
   color: green;
 }
 
-/* line 67, ../sass/screen.scss */
-.tabular {
-  display: table;
-}
-/* line 69, ../sass/screen.scss */
-.tabular > div {
-  display: table-row;
-}
-/* line 71, ../sass/screen.scss */
-.tabular > div > * {
-  display: table-cell;
-}
-
-/* line 77, ../sass/screen.scss */
+/* line 68, ../sass/screen.scss */
 form.login {
   padding: 50px;
   margin: 100px auto 100px auto;

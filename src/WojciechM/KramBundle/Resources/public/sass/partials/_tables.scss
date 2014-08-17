@@ -1,0 +1,44 @@
+@import "compass/utilities/tables/alternating-rows-and-columns";
+
+@mixin colored-columns($column1, $column2) {
+	td:nth-child(2n) {
+		background-color: $column1;
+	}
+	td:nth-child(2n+1) {
+		background-color: $column2;
+	}
+}
+
+@mixin colored-rows($row1, $row2) {
+	tr:nth-child(2n) {
+		background-color: $row1;
+		@include colored-columns($row1, darken($row1, 5%));
+	}
+	tr:nth-child(2n+1) {
+		background-color: $row2;
+		@include colored-columns($row2, darken($row2, 5%));
+	}
+}
+
+@mixin colored-header($head1, $head2) {
+	th:nth-child(2n) {
+		background-color: $head1;
+	}
+	th:nth-child(2n+1) {
+		background-color: $head2;
+	}
+}
+
+table {
+	@include colored-rows($table-color,  adjust-hue($table-color, -30deg));
+}
+
+.tabular {
+	display: table;
+	> div {
+		display: table-row;
+		> * {
+			display: table-cell;
+		}
+	}
+}

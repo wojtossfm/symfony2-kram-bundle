@@ -1,0 +1,7 @@
+{% extends 'WojciechMKramBundle:Default:index_inner.html.twig' %}
+{% block row_actions %}
+	{{ parent() }}
+	<li>{{ widgets.button("Change password", "dialog",
+		"user_change_other_password", {"id":entity.id}) }}
+	</li>
+{% endblock %}

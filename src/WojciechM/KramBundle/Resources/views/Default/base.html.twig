@@ -40,7 +40,10 @@
 						<li>{{ widgets.button_nav("Debts", "", "debt", {})}}</li>
 						<li>{{ widgets.button_nav("Expenses", "", "expense", {})}}</li>
 						<li>{{ widgets.button_nav("Shopping list", "", "shoppinglist", {})}}</li>
-						<li>{{ widgets.button_nav("Users", "", "user", {})}}</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li>{{ widgets.button_nav("Users", "", "user", {})}}</li>
+						{% endif %}
+						<li>{{ widgets.button_nav("Change password", "", "user_change_own_password", {})}}</li>
 						<li>{{ widgets.button_nav("Logout", "", "logout", {})}}</li>
 					</ul>
 				{% endif %}
@@ -48,6 +51,7 @@
 			</nav>
 		{% endblock %}
 		</header>
+		<div style='clear:both;'></div>
 		<section>
 		{% block section %}
 			{% block content %}
@@ -55,10 +59,11 @@
 			{% endblock %}
 		{% endblock %}
 		</section>
-		<footer>
-			{% block footer %}
-				{% trans %}KRAM{% endtrans %}
-			{% endblock %}
-		</footer>
+		<div id='layout_footer'></div>
 	</div>
+	<footer id="footer">
+		{% block footer %}
+			© 2014{% if "now"|date("Y") != "2014" %}-{{ "now"|date("Y") }}{% endif %} kram All Rights Reserved
+		{% endblock %}
+	</footer>
 {% endblock %}

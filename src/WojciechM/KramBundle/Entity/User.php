@@ -32,7 +32,13 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 
 	/**
 	 * @ORM\Column(type="string", length=255)
-	 * @Assert\Length(min=8)
+	 * @Assert\Length(
+     *     min = 8,
+     *     minMessage = "Password should by at least {{ limit }} chars long"
+     * )
+     * @Assert\Regex(pattern="/\d+/", message="Password must contain a digit")
+     * @Assert\Regex(pattern="/[A-Z]+/u", message="Password must contain an uppercase character")
+     * @Assert\Regex(pattern="/[a-z]+/u", message="Password must contain a lowercase character")
 	 */
 	private $password;
 
@@ -514,6 +520,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 		$this->shoppingWeeks = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->payments = new \Doctrine\Common\Collections\ArrayCollection();
 		$this->debts = new \Doctrine\Common\Collections\ArrayCollection();
+		$this->balance = 0;
 	}
 
 

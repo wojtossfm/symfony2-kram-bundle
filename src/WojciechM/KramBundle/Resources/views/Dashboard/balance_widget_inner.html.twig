@@ -4,5 +4,10 @@
 {% block inner_content %}
 	{{ parent() }}
 	
-	<h4>{% trans %}Balance{% endtrans %}: {{ total }}</h4>
+	<h4>
+		{% trans %}Balance{% endtrans %}:
+		<span class="summary
+			{% if total < 0 %}debt{% else %}paid{% endif %}"
+		>{{ total }}</span>
+	</h4>
 {% endblock %}
