@@ -29,6 +29,7 @@ class Payment
 
     /**
      * @ORM\ManyToOne(targetEntity="PaymentType", inversedBy="payments")
+     * @Assert\NotNull()
      **/
     private $type;
 

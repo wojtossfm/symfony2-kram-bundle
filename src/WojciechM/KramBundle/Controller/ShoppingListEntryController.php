@@ -106,7 +106,7 @@ class ShoppingListEntryController extends ExtendedController {
 	 */
 	public function reportAction(Request $request) {
 		$entity = new Expense();
-		$list = $this->getCurrentList($this->getDoctrine()->getEntityManager());
+		$list = $this->getCurrentList($this->getDoctrine()->getManager());
 		$week = $this->getCurrentWeek();
 		$comment = $this->get('translator')->trans('Closing list from ');
 		$comment .= $list;

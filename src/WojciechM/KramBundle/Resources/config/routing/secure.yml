@@ -1,0 +1,35 @@
+dashboard:
+    path:     /
+    defaults: { _controller: WojciechMKramBundle:Default:dashboard }
+
+balance_widget:
+    path:     /balance
+    defaults: { _controller: WojciechMKramBundle:Default:balanceWidget }
+  
+WojciechMKramBundle_user:
+        resource: "@WojciechMKramBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+
+WojciechMKramBundle_payment:
+        resource: "@WojciechMKramBundle/Resources/config/routing/payment.yml"
+        prefix:   /payment/
+
+WojciechMKramBundle_expense:
+        resource: "@WojciechMKramBundle/Resources/config/routing/expense.yml"
+        prefix:   /expense
+
+WojciechMKramBundle_week:
+        resource: "@WojciechMKramBundle/Resources/config/routing/week.yml"
+        prefix:   /week
+
+WojciechMKramBundle_debt:
+        resource: "@WojciechMKramBundle/Resources/config/routing/debt.yml"
+        prefix:   /debt
+
+WojciechMKramBundle_shoppinglist:
+        resource: "@WojciechMKramBundle/Resources/config/routing/shoppinglist.yml"
+        prefix:   /shopping
+
+WojciechMKramBundle_shoppingentry:
+        resource: "@WojciechMKramBundle/Resources/config/routing/shoppingentry.yml"
+        prefix:   /shopping/entry

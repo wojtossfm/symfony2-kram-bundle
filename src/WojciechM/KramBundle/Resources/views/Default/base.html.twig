@@ -4,8 +4,8 @@
 {% block stylesheets %}
 {# 		'bundles/wojciechmkram/css/*' #}
 {# 		'@WojciechMKramBundle/Resources/public/css/*'#}
-	{% stylesheets filter='cssrewrite'
-		'bundles/wojciechmkram/css/*'
+	{% stylesheets 
+		'@WojciechMKramBundle/Resources/public/css/*'
 	%}
 	        <link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
@@ -43,7 +43,7 @@
 						{% if is_granted('ROLE_ADMIN') %}
 							<li>{{ widgets.button_nav("Users", "", "user", {})}}</li>
 						{% endif %}
-						<li>{{ widgets.button_nav("Change password", "", "user_change_own_password", {})}}</li>
+						<li>{{ widgets.button_nav("Change password", "dialog", "user_change_own_password", {})}}</li>
 						<li>{{ widgets.button_nav("Logout", "", "logout", {})}}</li>
 					</ul>
 				{% endif %}

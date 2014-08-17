@@ -1,0 +1,53 @@
+<VirtualHost *:443>
+	SSLEngine on
+	SSLCertificateFile	/etc/ssl/certs/ssl-cert-snakeoil.pem
+	SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+		
+	ServerAdmin webmaster@localhost
+	ServerName kram
+
+	DocumentRoot /var/www/kram/web
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /var/www/kram/web/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride None
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+	ErrorLog ${APACHE_LOG_DIR}/kram_error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog ${APACHE_LOG_DIR}/kram_access.log combined
+	DirectoryIndex app.php
+
+	<IfModule mod_rewrite.c>
+		RewriteEngine Off
+		
+		RewriteCond %{REQUEST_URI}::$1 ^(/.+)/(.*)::\2$
+		RewriteRule ^(.*) - [E=BASE:%1]
+	
+		RewriteCond %{ENV:REDIRECT_STATUS} ^$
+		RewriteRule ^app\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
+	
+		RewriteCond %{REQUEST_FILENAME} -f
+		RewriteRule .? - [L]
+	
+		RewriteRule .? %{ENV:BASE}/app.php [L]
+	</IfModule>
+
+</VirtualHost>
