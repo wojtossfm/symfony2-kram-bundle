@@ -61,7 +61,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface
 		$query = "SELECT u, p, d FROM WojciechMKramBundle:User u ".
 				"LEFT JOIN u.payments p ".
 				"LEFT JOIN u.debts d ".
-				"WHERE u.active = :active";
+				"WHERE u.active = :active ORDER BY u.lastName, u.firstName";
 		return $this->getEntityManager()->createQuery($query)->setParameters($filter)
 			->getResult(); 
 	}

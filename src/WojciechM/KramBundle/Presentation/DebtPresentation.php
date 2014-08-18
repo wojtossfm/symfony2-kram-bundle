@@ -9,6 +9,7 @@ class DebtPresentation extends Presentation {
 			new PresentationField(PresentationField::TYPE_SINGLE, "week", "Week", NULL),
 			new PresentationField(PresentationField::TYPE_SINGLE, "amount", "Amount", NULL),
 			new PresentationField(PresentationField::TYPE_SINGLE, "dateCreated", "Created", PresentationField::FORMAT_DATE),
+			new PresentationField(PresentationField::TYPE_SINGLE, "comment", "Comment", NULL),
 		);
 		$this->rowActions = array("edit" => "debt_edit", "delete" => "debt_delete");
 		$this->labels = array('plural' => 'Debts', 'single' => 'Debt');

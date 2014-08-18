@@ -10,6 +10,7 @@ class PaymentPresentation extends Presentation {
 			new PresentationField(PresentationField::TYPE_SINGLE, "type", "Type", NULL),
 			new PresentationField(PresentationField::TYPE_SINGLE, "amount", "Amount", NULL),
 			new PresentationField(PresentationField::TYPE_SINGLE, "dateCreated", "Created", PresentationField::FORMAT_DATE),
+			new PresentationField(PresentationField::TYPE_SINGLE, "comment", "Comment", NULL),
 		);
 		$this->rowActions = array("edit" => "payment_edit", "delete" => "payment_delete");
 		$this->labels = array('plural' => 'Payments', 'single' => 'Payment');

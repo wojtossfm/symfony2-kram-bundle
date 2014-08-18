@@ -21,8 +21,8 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface {
 		$user->setFirstName("Admin");
 		$user->setLastName("Basic");
 		$user->setEmail('admin@gmail.com');
-		$user->setIsActive(true);
-		$user->setIsAdmin(true);
+		$user->setActive(true);
+		$user->setAdmin(true);
 		$user->setPassword($encoder->encodePassword('admin', $user->getSalt()));
 		$manager->persist($user);
 		$manager->flush();

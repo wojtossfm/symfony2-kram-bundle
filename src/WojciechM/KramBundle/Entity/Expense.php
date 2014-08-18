@@ -32,7 +32,7 @@ class Expense
     /**
      * @var string
      *
-     * @ORM\Column(name="amount", type="decimal")
+     * @ORM\Column(name="amount", type="decimal", scale=2)
      * @Assert\NotBlank()
      * @Assert\Range(min=0)
      */

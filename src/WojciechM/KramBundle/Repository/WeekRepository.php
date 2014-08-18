@@ -80,7 +80,8 @@ class WeekRepository extends EntityRepository {
 	}
 
 	public function findCurrent() {
-		$last = $this->findLastNWeeksAndPayments(1)[0];
+		$last = $this->findLastNWeeksAndPayments(1);
+		$last = $last[0];
 		return $last;
 	}
 	

@@ -113,7 +113,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="balance", type="decimal")
+	 * @ORM\Column(name="balance", type="decimal", scale=2)
 	 */
 	private $balance;
 

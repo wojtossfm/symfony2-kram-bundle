@@ -39,7 +39,7 @@ class Week
     /**
      * @var string
      *
-     * @ORM\Column(name="fee", type="decimal")
+     * @ORM\Column(name="fee", type="decimal", scale=2)
      */
     private $fee;
 
