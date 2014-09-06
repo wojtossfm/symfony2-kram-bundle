@@ -25,8 +25,8 @@ class WeekRepository extends EntityRepository {
 		$users = $em->getRepository('WojciechMKramBundle:User')->findBy(array("active"=>True));
 		if (!empty($lastArr)) {
 			$last = $lastArr[0];
-			$lastStart = $last->getStart();
-			$lastEnd = $last->getEnd();
+			$lastStart = clone $last->getStart();
+			$lastEnd = clone $last->getEnd();
 			$interval = new \DateInterval("P7D");
 			$fee = $last->getFee();
 			while($sample->getStart() > $lastStart) {
@@ -43,8 +43,8 @@ class WeekRepository extends EntityRepository {
 					$em->persist($debt);
 				}
 				$em->persist($last);
-				$lastStart = $last->getStart();
-				$lastEnd = $last->getEnd();
+				$lastStart = clone $last->getStart();
+				$lastEnd = clone $last->getEnd();
 			}
 		} else {
 			$sample->setFee(0);

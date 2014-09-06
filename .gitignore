@@ -1,6 +1,6 @@
 app/logs/*
 app/cache/*
-.sass-cache
+src/WojciechM/KramBundle/Resources/public/.sass-cache
 *~
 .settings
 vendor/*

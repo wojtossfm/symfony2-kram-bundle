@@ -7,7 +7,7 @@ build:
 	sudo chmod 777 -R app/cache app/logs web
 	sudo rsync --delete -r src /var/www/kram/
 	sudo chown -R www-data:www-data /var/www/kram
-	sudo su www-data -c "cd /var/www/kram/; /var/www/kram/deploy.sh update prod"
+	sudo su www-data -s/bin/bash -c "cd /var/www/kram/; /var/www/kram/deploy.sh update prod"
 
 syncfull:
 	sudo rsync --delete -r ../kram /var/www/
