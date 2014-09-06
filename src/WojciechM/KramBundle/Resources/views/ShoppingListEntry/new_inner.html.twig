@@ -2,6 +2,16 @@
 
 {% block inner_content %}
 	{{ parent() }}
+	
+	<h4>
+		{% trans %}Shoppers{% endtrans %}:
+		<ul>
+			{% for shopper in shoppers %}
+				<li>{{ shopper }}</li>
+			{% endfor %}
+		</ul>
+	</h4>
+	
 	{% include 'WojciechMKramBundle:Default:new_inner.html.twig' %}
 {% endblock %}
 

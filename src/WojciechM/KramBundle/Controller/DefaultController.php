@@ -18,11 +18,13 @@ class DefaultController extends ExtendedController
     	$users = $em->getRepository("WojciechMKramBundle:User")->findForBalance(array("active"=>True));
     	$payments = $em->getRepository("WojciechMKramBundle:Payment")->findTotal();
 		$expenses = $em->getRepository("WojciechMKramBundle:Expense")->findTotal();
+		$week = $em->getRepository("WojciechMKramBundle:Week")->findCurrent();
 		return $this->render("WojciechMKramBundle:Dashboard:balance_widget_inner.html.twig",
 			array(
 				  "entities"=>$users,
 				  "presentation"=>new BalancePresentation(),
-				  "total"=>0 + $payments - $expenses
+				  "total"=>0 + $payments - $expenses,
+				  "collectors"=>$week->getCollectors(),
 				));
     }
 }

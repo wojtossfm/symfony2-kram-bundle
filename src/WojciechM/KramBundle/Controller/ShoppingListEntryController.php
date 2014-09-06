@@ -39,8 +39,10 @@ class ShoppingListEntryController extends ExtendedController {
 	protected function extendContext($context) {
 		$context = parent::extendContext($context);
 		$em = $this->getDoctrine()->getManager();
+		$week = $em->getRepository("WojciechMKramBundle:Week")->findCurrent();
 		$context["entities"] = $this->getListEntities($em);
 		$context["intention_vote"] = $this->getVoteIntention();
+		$context["shoppers"] = $week->getShoppers();
 		return $context;
 	}
 	

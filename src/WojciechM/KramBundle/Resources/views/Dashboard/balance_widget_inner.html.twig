@@ -10,4 +10,12 @@
 			{% if total < 0 %}debt{% else %}paid{% endif %}"
 		>{{ total }}</span>
 	</h4>
+	<h4>
+		{% trans %}Collectors{% endtrans %}:
+		<ul>
+			{% for collector in collectors %}
+				<li>{{ collector }}</li>
+			{% endfor %}
+		</ul>
+	</h4>
 {% endblock %}

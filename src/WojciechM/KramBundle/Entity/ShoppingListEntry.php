@@ -33,13 +33,11 @@ class ShoppingListEntry
 
     /**
      * @ORM\ManyToOne(targetEntity="ShoppingList", inversedBy="entries")
-     * @Assert\NotNull()
      **/
     private $list;
     
     /**
      * @ORM\ManyToOne(targetEntity="User")
-     * @Assert\NotNull()
      **/
     private $user;
     
