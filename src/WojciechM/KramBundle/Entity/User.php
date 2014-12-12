@@ -373,7 +373,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable,
 		foreach($this->getPayments() as $change) {
 			$this->balance += $change->getAmount();
 		}
-		return $this->balance;
+		return round($this->balance,2);
 	}
 	
 	/**
