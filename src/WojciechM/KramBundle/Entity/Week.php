@@ -44,29 +44,29 @@ class Week
     private $fee;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="collectionWeeks")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="collectionWeeks", fetch="EAGER")
      * @ORM\JoinTable(name="users_collectors")
      **/
     private $collectors;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="shoppingWeeks")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="shoppingWeeks", fetch="EAGER")
      * @ORM\JoinTable(name="users_shoppers")
      **/
     private $shoppers;
     
     /**
-     * @ORM\OneToMany(targetEntity="Payment", mappedBy="week")
+     * @ORM\OneToMany(targetEntity="Payment", mappedBy="week", fetch="EAGER")
      **/
     private $payments;
     
     /**
-     * @ORM\OneToMany(targetEntity="Debt", mappedBy="week")
+     * @ORM\OneToMany(targetEntity="Debt", mappedBy="week", fetch="EAGER")
      **/
     private $debts;
 
     /**
-     * @ORM\OneToMany(targetEntity="Expense", mappedBy="week")
+     * @ORM\OneToMany(targetEntity="Expense", mappedBy="week", fetch="EAGER")
      **/
     private $expenses;
 

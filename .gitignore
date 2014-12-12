@@ -4,3 +4,5 @@ src/WojciechM/KramBundle/Resources/public/.sass-cache
 *~
 .settings
 vendor/*
+.sass-cache
+web/*

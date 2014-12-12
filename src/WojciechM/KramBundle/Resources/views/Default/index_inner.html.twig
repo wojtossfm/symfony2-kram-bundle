@@ -4,6 +4,14 @@
 		{{ presentation.labels.plural|trans }}
 	{% endif %}
 </h1>
+<ul class="actions">
+                {% if presentation.generalActions.new is defined %}
+                        <li>
+                                {{ widgets.button_ready_new(presentation.generalActions.new)}}
+                        </li>
+                {% endif %}
+</ul>
+
 
     <table class="records_list">
         <thead>

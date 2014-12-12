@@ -60,12 +60,12 @@ class WeekRepository extends EntityRepository {
 	
 	private function getAllWithJoinsQuery() {
 		return $this->getEntityManager()
-			->createQuery("SELECT w, p, e, s, c, d FROM WojciechMKramBundle:Week w ".
-				"LEFT JOIN w.payments p ".
-				"LEFT JOIN w.expenses e ".
-				"LEFT JOIN w.debts d ".
-				"LEFT JOIN w.shoppers s ".
-				"LEFT JOIN w.collectors c ".
+			->createQuery("SELECT w FROM WojciechMKramBundle:Week w ".
+			//	"LEFT JOIN w.payments p ".
+			//	"LEFT JOIN w.expenses e ".
+			//	"LEFT JOIN w.debts d ".
+			//	"LEFT JOIN w.shoppers s ".
+			//	"LEFT JOIN w.collectors c ".
 				"ORDER BY w.start DESC, w.end DESC");
 	}
 	
